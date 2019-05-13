@@ -51,3 +51,6 @@ body{
   -webkit-font-smoothing: antialiased;
 }
 </style>
+<style lang="scss">
+  @import "assets/theme";
+</style>
