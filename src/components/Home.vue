@@ -5,7 +5,7 @@
       <div class="sale-rank-container">
         <md-list>
           <md-subheader class="rank-title">今日票房</md-subheader>
-          <md-card class="rank-card">
+          <md-card class="rank-card" md-with-hover>
             <md-card-media-actions class="rank-top-card">
               <md-card-media class="rank-top-image">
                 <span class="rank-top-index">1</span>
@@ -131,7 +131,7 @@
   .rank-card
     margin 10px 0
   .rank-top-card
-    padding 0
+    padding 10px 0
   .rank-card-text
     padding 0
     margin 0
