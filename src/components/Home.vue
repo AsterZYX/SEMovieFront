@@ -7,8 +7,8 @@
           <md-subheader class="rank-title">今日票房</md-subheader>
           <md-card class="rank-card" md-with-hover>
             <md-card-media-actions class="rank-top-card">
+              <span class="rank-top-index">1</span>
               <md-card-media class="rank-top-image">
-                <span class="rank-top-index">1</span>
                 <img class="rank-top-img" src="https://p0.meituan.net/mmdb/33005c10b741bcd6271ab9fd2d5194ac2407254.jpg@120w_80h_1e_1c" alt="Cover">
               </md-card-media>
               <md-card-header class="rank-card-text">
@@ -24,13 +24,36 @@
           </md-list-item>
         </md-list>
       </div>
+      <div class="sale-rank-container" style="margin-top: 150px">
+        <md-list>
+          <md-subheader class="rank-title">TOP 100</md-subheader>
+          <md-card class="rank-card" md-with-hover>
+            <md-card-media-actions class="rank-top-card">
+              <span class="rank-top-index">1</span>
+              <md-card-media class="rank-top-image">
+                <img class="rank-top-img" src="https://p0.meituan.net/mmdb/33005c10b741bcd6271ab9fd2d5194ac2407254.jpg@120w_80h_1e_1c" alt="Cover">
+              </md-card-media>
+              <md-card-header class="rank-card-text">
+                <div class="md-title rank-card-text-title">{{saleRankData[0].name}}</div>
+                <div class="md-subhead rank-card-text-profit">{{saleRankData[0].profit}}分</div>
+              </md-card-header>
+            </md-card-media-actions>
+          </md-card>
+          <md-list-item v-for="(item, index) in saleRankData" :key="index" to="/123" v-if="index !== 0">
+            <span class="rank-item-index" :class="index < 3 ? 'rank-item-index-top' : ''">{{index + 1}}</span>
+            <span class="rank-item-name">{{item.name}}</span>
+            <span class="rank-item-profit">{{item.profit}}分</span>
+          </md-list-item>
+        </md-list>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+
     export default {
-        name: "home",
+      name: "home",
         data(){
           return{
             saleRankData:[
@@ -93,7 +116,7 @@
     width 30%
     height 100%
   .md-list
-    width 320px
+    width 80%
     max-width 100%
     display inline-block
     vertical-align top
@@ -131,7 +154,7 @@
   .rank-card
     margin 10px 0
   .rank-top-card
-    padding 10px 0
+    padding 10px 6px
   .rank-card-text
     padding 0
     margin 0
