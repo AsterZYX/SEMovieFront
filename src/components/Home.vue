@@ -1,6 +1,18 @@
 <template>
   <div class="main-container">
-    <div class="left-container"></div>
+    <div class="left-container">
+      <div class="recommend-container">
+        <div class="recommend-container-title">正在热映</div>
+        <md-divider style="margin-bottom: 20px"></md-divider>
+        <el-carousel :interval="4000" type="card" height="200px">
+          <el-carousel-item v-for="item in onShowMovies" :key="item">
+            <h3 class="medium">
+              <img :src=item />
+            </h3>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+    </div>
     <div class="right-container">
       <div class="sale-rank-container">
         <md-list>
@@ -27,6 +39,10 @@
       <div class="sale-rank-container" style="margin-top: 150px">
         <md-list>
           <md-subheader class="rank-title">TOP 100</md-subheader>
+          <md-button class="md-dense md-primary rank-button">
+            <span>查看完整榜单</span>
+            <md-icon>keyboard_arrow_right</md-icon>
+          </md-button>
           <md-card class="rank-card" md-with-hover>
             <md-card-media-actions class="rank-top-card">
               <span class="rank-top-index">1</span>
@@ -97,6 +113,13 @@
                 name: '何以为家',
                 profit: 123.9
               }
+            ],
+            onShowMovies: [
+              'http://img5.mtime.cn/mg/2019/05/14/090625.81162127.jpg',
+              'http://img5.mtime.cn/mg/2019/05/13/121854.88403121.jpg',
+              'http://img5.mtime.cn/mg/2019/05/12/090614.37430543.jpg',
+              'http://img5.mtime.cn/mg/2019/05/11/092849.10516206.jpg',
+              'http://img5.mtime.cn/mg/2019/05/10/091103.45801615.jpg'
             ]
           }
         }
@@ -112,6 +135,7 @@
   .left-container
     width 70%
     height 100%
+    padding-left 6%
   .right-container
     width 30%
     height 100%
@@ -169,4 +193,29 @@
     text-align left
     padding-left 10px
     opacity 1
+  .rank-button
+    position absolute
+    right 0
+    top 0
+  .recommend-container
+    width 100%
+    padding-top 8px
+    text-align left
+  .recommend-container-title
+    color #5E7CE2
+    font-size 20px
+    font-weight 600
+    margin-bottom 10px
+  .el-carousel__item h3
+    color #475669
+    font-size 14px
+    opacity 0.9
+    line-height 200px
+    margin 0
+  .el-carousel__item:nth-child(2n)
+    /*background-color #99a9bf*/
+    background-color white
+  .el-carousel__item:nth-child(2n+1)
+    /*background-color #d3dce6*/
+    background-color white
 </style>

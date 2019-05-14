@@ -53,4 +53,5 @@ body{
 </style>
 <style lang="scss">
   @import "assets/theme";
+  @import "assets/el-theme";
 </style>
