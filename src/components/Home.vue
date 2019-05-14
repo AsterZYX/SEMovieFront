@@ -2,15 +2,110 @@
   <div class="main-container">
     <div class="left-container">
       <div class="recommend-container">
+      <div class="recommend-container-title-container">
         <div class="recommend-container-title">正在热映</div>
+        <div class="recommend-container-button">
+          <md-button class="md-dense md-primary recommend-button">
+            <span>全部</span>
+            <md-icon>keyboard_arrow_right</md-icon>
+          </md-button>
+        </div>
+      </div>
+      <md-divider style="margin-bottom: 20px"></md-divider>
+      <el-carousel :interval="4000" type="card" height="200px">
+        <el-carousel-item v-for="item in onShowMovies" :key="item">
+          <h3 class="medium">
+            <img :src=item />
+          </h3>
+        </el-carousel-item>
+      </el-carousel>
+      <div class="movie-list-container">
+        <div class="movie-item" v-for="(item, index) in movieOnShowList" :key="index">
+          <md-card class="movie-item-card" md-with-hover @click.native="chooseMovie(index)">
+            <md-card-media-cover md-solid>
+              <md-card-media>
+                <img src="https://p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@160w_220h_1e_1c" alt="Skyscraper">
+              </md-card-media>
+
+              <md-card-area>
+                <md-card-header class="movie-item-cover">
+                  <div class="movie-item-cover-container">
+                    <div class="movie-item-text movie-item-title">{{item.name}}</div>
+                    <div class="movie-item-text movie-item-remark">{{item.remark}}</div>
+                  </div>
+                </md-card-header>
+              </md-card-area>
+            </md-card-media-cover>
+          </md-card>
+        </div>
+      </div>
+    </div>
+      <div class="recommend-container second-container" style="margin-top: 100px">
+        <div class="recommend-container-title-container">
+          <div class="recommend-container-title">即将上映</div>
+          <div class="recommend-container-button">
+            <md-button class="md-dense md-primary recommend-button">
+              <span>全部</span>
+              <md-icon>keyboard_arrow_right</md-icon>
+            </md-button>
+          </div>
+        </div>
         <md-divider style="margin-bottom: 20px"></md-divider>
-        <el-carousel :interval="4000" type="card" height="200px">
-          <el-carousel-item v-for="item in onShowMovies" :key="item">
-            <h3 class="medium">
-              <img :src=item />
-            </h3>
-          </el-carousel-item>
-        </el-carousel>
+        <div class="movie-list-container">
+          <div class="movie-item" v-for="(item, index) in movieNextList" :key="index">
+            <md-card class="movie-item-card" md-with-hover @click.native="chooseMovie(index)">
+              <md-card-media-cover md-solid>
+                <md-card-media>
+                  <img src="https://p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@160w_220h_1e_1c" alt="Skyscraper">
+                </md-card-media>
+
+                <md-card-area>
+                  <md-card-header class="movie-item-cover">
+                    <div class="movie-item-cover-container">
+                      <div class="movie-item-text movie-item-title">{{item.name}}</div>
+                      <md-button style="height: 30px">
+                        <md-icon style="color: #ffb400">shopping_cart</md-icon>
+                        <span style="color: #ffb400">预售</span>
+                      </md-button>
+                    </div>
+                  </md-card-header>
+                </md-card-area>
+              </md-card-media-cover>
+            </md-card>
+          </div>
+        </div>
+      </div>
+      <div class="recommend-container" style="margin-top: 100px">
+        <div class="recommend-container-title-container">
+          <div class="recommend-container-title">热播电影</div>
+          <div class="recommend-container-button">
+            <md-button class="md-dense md-primary recommend-button">
+              <span>全部</span>
+              <md-icon>keyboard_arrow_right</md-icon>
+            </md-button>
+          </div>
+        </div>
+        <md-divider style="margin-bottom: 20px"></md-divider>
+        <div class="movie-list-container">
+          <div class="movie-item" v-for="(item, index) in movieHotList" :key="index">
+            <md-card class="movie-item-card" md-with-hover @click.native="chooseMovie(index)">
+              <md-card-media-cover md-solid>
+                <md-card-media>
+                  <img src="https://p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@160w_220h_1e_1c" alt="Skyscraper">
+                </md-card-media>
+
+                <md-card-area>
+                  <md-card-header class="movie-item-cover">
+                    <div class="movie-item-cover-container">
+                      <div class="movie-item-text movie-item-title">{{item.name}}</div>
+                      <div class="movie-item-text movie-item-remark">{{item.remark}}</div>
+                    </div>
+                  </md-card-header>
+                </md-card-area>
+              </md-card-media-cover>
+            </md-card>
+          </div>
+        </div>
       </div>
     </div>
     <div class="right-container">
@@ -36,7 +131,7 @@
           </md-list-item>
         </md-list>
       </div>
-      <div class="sale-rank-container" style="margin-top: 150px">
+      <div class="sale-rank-container" style="margin-top: 98px">
         <md-list>
           <md-subheader class="rank-title">TOP 100</md-subheader>
           <md-button class="md-dense md-primary rank-button">
@@ -120,6 +215,72 @@
               'http://img5.mtime.cn/mg/2019/05/12/090614.37430543.jpg',
               'http://img5.mtime.cn/mg/2019/05/11/092849.10516206.jpg',
               'http://img5.mtime.cn/mg/2019/05/10/091103.45801615.jpg'
+            ],
+            movieOnShowList:[
+              {
+                name: "调音师",
+                remark: 9.0
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              }
+            ],
+            movieNextList:[
+              {
+                name: "调音师",
+                remark: 9.0
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              }
+            ],
+            movieHotList:[
+              {
+                name: "调音师",
+                remark: 9.0
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              }
             ]
           }
         }
@@ -218,4 +379,50 @@
   .el-carousel__item:nth-child(2n+1)
     /*background-color #d3dce6*/
     background-color white
+  .movie-list-container
+    width 100%
+    display flex
+    flex-flow row wrap
+    align-content flex-start
+    margin-top 20px
+  .movie-item
+    flex 0 0 20%
+    margin-bottom 30px
+  .movie-item-card
+    box-shadow none
+  .movie-item-cover
+    padding 10px 5px
+    margin 0
+  .movie-item-cover-container
+    width 100%
+    height 30px
+    display flex
+  .movie-item-text
+    font-size 16px
+    line-height 30px
+    overflow hidden
+    white-space nowrap
+    text-overflow ellipsis
+    padding 0 5px
+  .movie-item-title
+    width 75%
+    height 100%
+    text-align left
+  .movie-item-remark
+    width 30%
+    height 100%
+    text-align right
+    color #ffb400
+    font-size 20px
+    font-style italic
+  .recommend-container-title-container
+    position relative
+  .recommend-button
+    margin-top 0
+    margin-bottom 0
+    position absolute
+    right 0
+    top -1px
+  //.second-container
+    //box-shadow 0 2px 8px 0 rgba(7,17,27,.06)
 </style>
