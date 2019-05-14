@@ -19,7 +19,7 @@
         </div>
 
         <div class="md-toolbar-row">
-          <md-tabs class="md-primary">
+          <md-tabs class="md-primary" md-sync-route>
             <md-tab id="tab-home" md-label="首  页" to="/home"></md-tab>
             <md-tab id="tab-pages" md-label="电  影" to="/list"></md-tab>
             <md-tab id="tab-posts" md-label="榜  单" to="/rank"></md-tab>

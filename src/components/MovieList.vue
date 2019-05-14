@@ -36,17 +36,7 @@
     </div>
     <div class="movie-list-container">
       <div class="movie-item" v-for="(item, index) in movieList" :key="index">
-        <!--<md-card class="movie-item-card" md-with-hover>-->
-          <!--<md-card-media>-->
-            <!--<img src="https://p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@160w_220h_1e_1c" alt="People">-->
-          <!--</md-card-media>-->
-
-          <!--<md-card-content>-->
-            <!--<p class="movie-item-title">{{item.name}}</p>-->
-            <!--<p class="movie-item-remark">{{item.remark}}</p>-->
-          <!--</md-card-content>-->
-        <!--</md-card>-->
-        <md-card class="movie-item-card" md-with-hover>
+        <md-card class="movie-item-card" md-with-hover @click.native="chooseMovie(index)">
           <md-card-media-cover md-solid>
             <md-card-media>
               <img src="https://p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@160w_220h_1e_1c" alt="Skyscraper">
@@ -149,6 +139,15 @@
           },
           chooseMovieTime(index) {
             this.timeIndex = index
+          },
+          chooseMovie(index) {
+            let routeUrl = this.$router.resolve({
+              path: "/ticket",
+              query: {
+                id:index
+              }
+            });
+            window.open(routeUrl .href, '_blank');
           }
         }
     }
@@ -199,7 +198,7 @@
     flex-flow row wrap
     align-content flex-start
   .movie-item
-    flex 0 0 20%
+    flex 0 0 16%
     margin-bottom 30px
   .movie-item-card
     box-shadow none

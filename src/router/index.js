@@ -4,6 +4,7 @@ import Common from '@/view/Common'
 import Home from '@/components/Home'
 import MovieList from '@/components/MovieList'
 import MovieRank from '@/components/MovieRank'
+import MovieTicket from '@/components/MovieTicket'
 
 Vue.use(Router)
 
@@ -29,6 +30,11 @@ export default new Router({
           path: '/rank',
           name: 'movie-rank',
           component: MovieRank,
+        },
+        {
+          path: '/ticket',
+          name: 'movie-ticket',
+          component: MovieTicket,
         }
       ]
     }
