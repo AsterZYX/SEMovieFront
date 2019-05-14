@@ -34,6 +34,36 @@
       <md-radio class="sort-item" v-model="sortType" value="time">按时间排序</md-radio>
       <md-radio class="sort-item" v-model="sortType" value="remark">按评价排序</md-radio>
     </div>
+    <div class="movie-list-container">
+      <div class="movie-item" v-for="(item, index) in movieList" :key="index">
+        <!--<md-card class="movie-item-card" md-with-hover>-->
+          <!--<md-card-media>-->
+            <!--<img src="https://p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@160w_220h_1e_1c" alt="People">-->
+          <!--</md-card-media>-->
+
+          <!--<md-card-content>-->
+            <!--<p class="movie-item-title">{{item.name}}</p>-->
+            <!--<p class="movie-item-remark">{{item.remark}}</p>-->
+          <!--</md-card-content>-->
+        <!--</md-card>-->
+        <md-card class="movie-item-card" md-with-hover>
+          <md-card-media-cover md-solid>
+            <md-card-media>
+              <img src="https://p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@160w_220h_1e_1c" alt="Skyscraper">
+            </md-card-media>
+
+            <md-card-area>
+              <md-card-header class="movie-item-cover">
+                <div class="movie-item-cover-container">
+                  <div class="movie-item-text movie-item-title">{{item.name}}</div>
+                  <div class="movie-item-text movie-item-remark">{{item.remark}}</div>
+                </div>
+              </md-card-header>
+            </md-card-area>
+          </md-card-media-cover>
+        </md-card>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -50,7 +80,61 @@
             typeEnums:["全部" , "爱情" , "喜剧" , "动画" , "剧情" , "恐怖" , "惊悚" , "科幻" , "动作" , "悬疑" , "犯罪" , "冒险" , "战争" , "奇幻" , "运动" , "家庭" , "古装" , "武侠" , "西部" , "历史" , "传记" , "歌舞" , "黑色电影" , "短片" , "纪录片" , "其他"],
             regionEnums:["全部" , "大陆" , "美国" , "韩国" , "日本" , "中国香港" , "中国台湾" , "泰国" , "印度" , "法国" , "英国" , "俄罗斯" , "意大利" , "西班牙" , "德国" , "波兰" ,  "澳大利亚" , "伊朗" , "其他"],
             timeEnums:["全部" , "2019以后" , "2019" , "2018" , "2017" , "2016" , "2015" , "2014" , "2013" , "2012" , "2011" ,  "2000-2010" , "90年代" , "80年代" , "70年代" , "更早"],
-            sortType: 'heat'
+            sortType: 'heat',
+            movieList:[
+              {
+                name: "调音师",
+                remark: 9.0
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              },
+              {
+                name: "何以为家",
+                remark: 4.5
+              },
+              {
+                name: "大侦探皮卡丘",
+                remark: 7.7
+              },
+              {
+                name: "大侦探皮卡丘",
+                remark: 7.7
+              },
+              {
+                name: "大侦探皮卡丘",
+                remark: 7.7
+              },
+              {
+                name: "大侦探皮卡丘",
+                remark: 7.7
+              },
+              {
+                name: "大侦探皮卡丘",
+                remark: 7.7
+              },
+              {
+                name: "大侦探皮卡丘",
+                remark: 7.7
+              }
+            ]
           }
         },
         methods: {
@@ -74,14 +158,12 @@
   .main-container
     width 100%
     height 100%
-    padding 20px 10%
+    padding 20px 7%
   .tags-container
     width 100%
-    /*margin 20px 40px*/
     padding 20px 20px
   .tags-item
     width 100%
-    /*height 101px*/
     padding 10px 0
     display flex
   .tags-item-title
@@ -109,4 +191,41 @@
     text-align left
   .sort-item
     margin-right 60px
+  .movie-list-container
+    width 100%
+    padding 0 20px
+    margin 0 20px
+    display flex
+    flex-flow row wrap
+    align-content flex-start
+  .movie-item
+    flex 0 0 20%
+    margin-bottom 30px
+  .movie-item-card
+    box-shadow none
+  .movie-item-cover
+    padding 10px 5px
+    margin 0
+  .movie-item-cover-container
+    width 100%
+    height 30px
+    display flex
+  .movie-item-text
+    font-size 16px
+    line-height 30px
+    overflow hidden
+    white-space nowrap
+    text-overflow ellipsis
+    padding 0 5px
+  .movie-item-title
+    width 75%
+    height 100%
+    text-align left
+  .movie-item-remark
+    width 30%
+    height 100%
+    text-align right
+    color #ffb400
+    font-size 20px
+    font-style italic
 </style>
