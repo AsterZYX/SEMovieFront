@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-      <div class="recommend-container second-container" style="margin-top: 100px">
+      <div class="recommend-container" style="margin-top: 100px">
         <div class="recommend-container-title-container">
           <div class="recommend-container-title">即将上映</div>
           <div class="recommend-container-button">
@@ -232,10 +232,6 @@
               {
                 name: "何以为家",
                 remark: 4.5
-              },
-              {
-                name: "何以为家",
-                remark: 4.5
               }
             ],
             movieNextList:[
@@ -254,20 +250,12 @@
               {
                 name: "何以为家",
                 remark: 4.5
-              },
-              {
-                name: "何以为家",
-                remark: 4.5
               }
             ],
             movieHotList:[
               {
                 name: "调音师",
                 remark: 9.0
-              },
-              {
-                name: "何以为家",
-                remark: 4.5
               },
               {
                 name: "何以为家",
@@ -386,7 +374,7 @@
     align-content flex-start
     margin-top 20px
   .movie-item
-    flex 0 0 20%
+    flex 0 0 25%
     margin-bottom 30px
   .movie-item-card
     box-shadow none
@@ -423,6 +411,4 @@
     position absolute
     right 0
     top -1px
-  //.second-container
-    //box-shadow 0 2px 8px 0 rgba(7,17,27,.06)
 </style>
