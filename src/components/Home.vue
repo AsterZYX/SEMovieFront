@@ -5,7 +5,7 @@
       <div class="recommend-container-title-container">
         <div class="recommend-container-title">正在热映</div>
         <div class="recommend-container-button">
-          <md-button class="md-dense md-primary recommend-button">
+          <md-button class="md-dense md-primary recommend-button" @click="showAllMovies(0)">
             <span>全部</span>
             <md-icon>keyboard_arrow_right</md-icon>
           </md-button>
@@ -30,7 +30,11 @@
               <md-card-area>
                 <md-card-header class="movie-item-cover">
                   <div class="movie-item-cover-container">
-                    <div class="movie-item-text movie-item-title">{{item.name}}</div>
+                    <div class="movie-item-text movie-item-title">
+                      <span>{{item.name}}
+                          <md-tooltip md-direction="bottom" style="transform: translateY(10px)">{{item.name}}</md-tooltip>
+                      </span>
+                    </div>
                     <div class="movie-item-text movie-item-remark">{{item.remark}}</div>
                   </div>
                 </md-card-header>
@@ -44,7 +48,7 @@
         <div class="recommend-container-title-container">
           <div class="recommend-container-title">即将上映</div>
           <div class="recommend-container-button">
-            <md-button class="md-dense md-primary recommend-button">
+            <md-button class="md-dense md-primary recommend-button" @click="showAllMovies(1)">
               <span>全部</span>
               <md-icon>keyboard_arrow_right</md-icon>
             </md-button>
@@ -62,7 +66,11 @@
                 <md-card-area>
                   <md-card-header class="movie-item-cover">
                     <div class="movie-item-cover-container">
-                      <div class="movie-item-text movie-item-title">{{item.name}}</div>
+                      <div class="movie-item-text movie-item-title">
+                        <span>{{item.name}}
+                          <md-tooltip md-direction="bottom" style="transform: translateY(10px)">{{item.name}}</md-tooltip>
+                        </span>
+                      </div>
                       <md-button style="height: 30px">
                         <md-icon style="color: #ffb400">shopping_cart</md-icon>
                         <span style="color: #ffb400">预售</span>
@@ -79,7 +87,7 @@
         <div class="recommend-container-title-container">
           <div class="recommend-container-title">热播电影</div>
           <div class="recommend-container-button">
-            <md-button class="md-dense md-primary recommend-button">
+            <md-button class="md-dense md-primary recommend-button" @click="showAllMovies(2)">
               <span>全部</span>
               <md-icon>keyboard_arrow_right</md-icon>
             </md-button>
@@ -97,7 +105,11 @@
                 <md-card-area>
                   <md-card-header class="movie-item-cover">
                     <div class="movie-item-cover-container">
-                      <div class="movie-item-text movie-item-title">{{item.name}}</div>
+                      <div class="movie-item-text movie-item-title">
+                        <span>{{item.name}}
+                          <md-tooltip md-direction="bottom" style="transform: translateY(10px)">{{item.name}}</md-tooltip>
+                        </span>
+                      </div>
                       <div class="movie-item-text movie-item-remark">{{item.remark}}</div>
                     </div>
                   </md-card-header>
@@ -134,7 +146,7 @@
       <div class="sale-rank-container" style="margin-top: 98px">
         <md-list>
           <md-subheader class="rank-title">TOP 100</md-subheader>
-          <md-button class="md-dense md-primary rank-button">
+          <md-button class="md-dense md-primary rank-button" @click="$router.push('/rank')">
             <span>查看完整榜单</span>
             <md-icon>keyboard_arrow_right</md-icon>
           </md-button>
@@ -271,7 +283,17 @@
               }
             ]
           }
+        },
+      methods: {
+        showAllMovies: function (index) {
+          this.$router.push({
+            path: '/list',
+            query: {
+              tagState: index
+            }
+          })
         }
+      }
     }
 </script>
 

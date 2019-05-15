@@ -127,6 +127,14 @@
             ]
           }
         },
+        mounted(){
+          if(this.$route.query.tagState !== null){
+            this.stateIndex = this.$route.query.tagState;
+
+            let element = document.getElementsByClassName('md-scrollbar')[0];
+            element.scrollTop = 0;
+          }
+        },
         methods: {
           chooseMovieState(index) {
             this.stateIndex = index
