@@ -5,6 +5,7 @@ import Home from '@/components/Home'
 import MovieList from '@/components/MovieList'
 import MovieRank from '@/components/MovieRank'
 import MovieTicket from '@/components/MovieTicket'
+import MovieDetail from '@/components/MovieDetail'
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
           path: '/ticket',
           name: 'movie-ticket',
           component: MovieTicket,
+        },
+        {
+          path: '/detail',
+          name: 'movie-detail',
+          component: MovieDetail
         }
       ]
     }

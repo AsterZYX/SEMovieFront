@@ -161,7 +161,7 @@
           },
           chooseMovie(index) {
             let routeUrl = this.$router.resolve({
-              path: "/ticket",
+              path: "/detail",
               query: {
                 id:index
               }
