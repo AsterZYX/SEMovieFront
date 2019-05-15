@@ -30,6 +30,28 @@
         </div>
       </div>
     </div>
+    <div class="cinema-list-container">
+      <md-table class="cinema-list" v-model="cinemaList" md-sort="name" md-sort-order="asc" md-card>
+        <md-table-toolbar>
+          <h1 class="md-title cinema-list-title">
+            <md-icon>shop_two</md-icon>
+            影院列表</h1>
+        </md-table-toolbar>
+        <md-table-row v-for="(item, index) in cinemaList" :key="index">
+          <md-table-cell class="cinema-item">
+            <p class="cinema-item-title">{{ item.name }}</p>
+            <p class="text-grey">地址：{{ item.address }}</p>
+          </md-table-cell>
+          <md-table-cell class="cinema-item-right text-grey">
+            ￥
+            <span class="text-blue">{{ item.price }}</span>
+            起</md-table-cell>
+          <md-table-cell class="cinema-item-right">
+            <md-button class="md-raised md-primary md-mini">购票选座</md-button>
+          </md-table-cell>
+        </md-table-row>
+      </md-table>
+    </div>
   </div>
 </template>
 
@@ -47,58 +69,71 @@
             areaEnums:["全部" , "地铁附近" , "鼓楼区" , "江宁区" , "浦口区" , "六合区" , "栖霞区" , "秦淮区" , "雨花台区" , "玄武区" , "溧水区" , "建邺区" , "高淳区"],
             cinemaEnums:["全部" , "IMAX厅" , "CGS中国巨幕厅" , "杜比全景声厅" , "Dolby Cinema厅" , "RealD厅" , "RealD 6FL厅" , "4DX厅" , "DTS:X 临境音厅" , "儿童厅" , "4K厅" , "4D厅" , "巨幕厅"],
             sortType: 'heat',
-            movieList:[
+            cinemaList:[
               {
-                name: "调音师",
-                remark: 9.0
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                price: 34
               },
               {
-                name: "何以为家",
-                remark: 4.5
+                name: '卢米埃影城',
+                address: '高淳区富克斯5楼',
+                price: 34
               },
               {
-                name: "何以为家",
-                remark: 4.5
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                price: 34
               },
               {
-                name: "何以为家",
-                remark: 4.5
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                price: 34
               },
               {
-                name: "何以为家",
-                remark: 4.5
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                price: 34
               },
               {
-                name: "何以为家",
-                remark: 4.5
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                price: 34
               },
               {
-                name: "何以为家",
-                remark: 4.5
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                price: 34
               },
               {
-                name: "大侦探皮卡丘",
-                remark: 7.7
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                price: 34
               },
               {
-                name: "大侦探皮卡丘",
-                remark: 7.7
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                price: 34
               },
               {
-                name: "大侦探皮卡丘",
-                remark: 7.7
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                price: 34
               },
               {
-                name: "大侦探皮卡丘",
-                remark: 7.7
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                price: 34
               },
               {
-                name: "大侦探皮卡丘",
-                remark: 7.7
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                price: 34
               },
               {
-                name: "大侦探皮卡丘",
-                remark: 7.7
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                price: 34
               }
             ]
           }
@@ -189,11 +224,31 @@
     width 90%
     text-align left
   .tag-button
-    width 88px
+    width 120px
     height 24px
     line-height 24px
     margin 0 12px 0 0
   .activeTag
     background-color #92B4F4
     color white
+  .cinema-list-container
+    width 100%
+    margin-top 10px
+  .cinema-list
+    box-shadow none
+  .cinema-list-title
+    text-align left
+  .cinema-item
+    text-align left
+    padding  10px 0
+  .cinema-item-right
+    text-align right
+  .cinema-item-title
+    font-size 16px
+    margin-bottom 13px
+  .text-grey
+    color #999
+  .text-blue
+    color: #5E7CE2
+    font-size 20px
 </style>
