@@ -52,6 +52,14 @@
         </md-table-row>
       </md-table>
     </div>
+    <el-pagination
+      class="page"
+      background
+      layout="prev, pager, next"
+      :total="totalItems"
+      :current-page.sync="currentPage"
+      :page-size="pageSize">
+    </el-pagination>
   </div>
 </template>
 
@@ -135,7 +143,10 @@
                 address: '浦口区柳洲东路189号京新广场4楼',
                 price: 34
               }
-            ]
+            ],
+            totalItems: 0,
+            currentPage: 1,
+            pageSize: 12
           }
         },
         methods: {

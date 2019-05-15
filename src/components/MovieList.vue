@@ -54,6 +54,14 @@
         </md-card>
       </div>
     </div>
+    <el-pagination
+      class="page"
+      background
+      layout="prev, pager, next"
+      :total="totalItems"
+      :current-page.sync="currentPage"
+      :page-size="pageSize">
+    </el-pagination>
   </div>
 </template>
 
@@ -124,11 +132,14 @@
                 name: "大侦探皮卡丘",
                 remark: 7.7
               }
-            ]
+            ],
+            totalItems: 0,
+            currentPage: 1,
+            pageSize: 30
           }
         },
         mounted(){
-          if(this.$route.query.tagState !== null){
+          if(this.$route.query.tagState){
             this.stateIndex = this.$route.query.tagState;
 
             let element = document.getElementsByClassName('md-scrollbar')[0];
