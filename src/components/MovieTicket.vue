@@ -95,6 +95,13 @@
             <md-icon>shop_two</md-icon>
             影院列表</h1>
         </md-table-toolbar>
+        <md-table-row>
+          <md-table-head>影院</md-table-head>
+          <md-table-head class="cinema-item-right">猫眼票价</md-table-head>
+          <md-table-head class="cinema-item-right">豆瓣票价</md-table-head>
+          <md-table-head class="cinema-item-right">淘票票价格</md-table-head>
+          <md-table-head></md-table-head>
+        </md-table-row>
         <md-table-row v-for="(item, index) in cinemaList" :key="index">
           <md-table-cell class="cinema-item">
             <p class="cinema-item-title">{{ item.name }}</p>
@@ -102,8 +109,19 @@
           </md-table-cell>
           <md-table-cell class="cinema-item-right text-grey">
             ￥
-            <span class="text-blue">{{ item.price }}</span>
-            起</md-table-cell>
+            <span class="text-blue">{{ item.maoyanPrice }}</span>
+            起
+          </md-table-cell>
+          <md-table-cell class="cinema-item-right text-grey">
+            ￥
+            <span class="text-blue">{{ item.doubanPrice }}</span>
+            起
+          </md-table-cell>
+          <md-table-cell class="cinema-item-right text-grey">
+            ￥
+            <span class="text-blue">{{ item.taobaoPrice }}</span>
+            起
+          </md-table-cell>
           <md-table-cell class="cinema-item-right">
             <md-button class="md-raised md-primary md-mini">购票选座</md-button>
           </md-table-cell>
@@ -150,67 +168,93 @@
               {
                 name: '幸福蓝海国际影城',
                 address: '浦口区柳洲东路189号京新广场4楼',
-                price: 34
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
               },
               {
                 name: '卢米埃影城',
                 address: '高淳区富克斯5楼',
-                price: 34
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
               },
               {
                 name: '幸福蓝海国际影城',
                 address: '浦口区柳洲东路189号京新广场4楼',
-                price: 34
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
               },
               {
                 name: '幸福蓝海国际影城',
                 address: '浦口区柳洲东路189号京新广场4楼',
-                price: 34
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
               },
               {
                 name: '幸福蓝海国际影城',
                 address: '浦口区柳洲东路189号京新广场4楼',
-                price: 34
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
               },
               {
                 name: '幸福蓝海国际影城',
                 address: '浦口区柳洲东路189号京新广场4楼',
-                price: 34
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
               },
               {
                 name: '幸福蓝海国际影城',
                 address: '浦口区柳洲东路189号京新广场4楼',
-                price: 34
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
               },
               {
                 name: '幸福蓝海国际影城',
                 address: '浦口区柳洲东路189号京新广场4楼',
-                price: 34
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
               },
               {
                 name: '幸福蓝海国际影城',
                 address: '浦口区柳洲东路189号京新广场4楼',
-                price: 34
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
               },
               {
                 name: '幸福蓝海国际影城',
                 address: '浦口区柳洲东路189号京新广场4楼',
-                price: 34
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
               },
               {
                 name: '幸福蓝海国际影城',
                 address: '浦口区柳洲东路189号京新广场4楼',
-                price: 34
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
               },
               {
                 name: '幸福蓝海国际影城',
                 address: '浦口区柳洲东路189号京新广场4楼',
-                price: 34
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
               },
               {
                 name: '幸福蓝海国际影城',
                 address: '浦口区柳洲东路189号京新广场4楼',
-                price: 34
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
               }
             ],
             totalItems: 0,
