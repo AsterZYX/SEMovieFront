@@ -21,7 +21,7 @@
       </el-carousel>
       <div class="movie-list-container">
         <div class="movie-item" v-for="(item, index) in movieOnShowList" :key="index">
-          <md-card class="movie-item-card" md-with-hover @click.native="chooseMovie(index)">
+          <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(index)">
             <md-card-media-cover md-solid>
               <md-card-media>
                 <img src="https://p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@160w_220h_1e_1c" alt="Skyscraper">
@@ -57,7 +57,7 @@
         <md-divider style="margin-bottom: 20px"></md-divider>
         <div class="movie-list-container">
           <div class="movie-item" v-for="(item, index) in movieNextList" :key="index">
-            <md-card class="movie-item-card" md-with-hover @click.native="chooseMovie(index)">
+            <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(index)">
               <md-card-media-cover md-solid>
                 <md-card-media>
                   <img src="https://p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@160w_220h_1e_1c" alt="Skyscraper">
@@ -96,7 +96,7 @@
         <md-divider style="margin-bottom: 20px"></md-divider>
         <div class="movie-list-container">
           <div class="movie-item" v-for="(item, index) in movieHotList" :key="index">
-            <md-card class="movie-item-card" md-with-hover @click.native="chooseMovie(index)">
+            <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(index)">
               <md-card-media-cover md-solid>
                 <md-card-media>
                   <img src="https://p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@160w_220h_1e_1c" alt="Skyscraper">
@@ -124,7 +124,7 @@
       <div class="sale-rank-container">
         <md-list>
           <md-subheader class="rank-title">今日票房</md-subheader>
-          <md-card class="rank-card" md-with-hover>
+          <md-card class="rank-card" md-with-hover @click.native="showMovieDetail(index)">
             <md-card-media-actions class="rank-top-card">
               <span class="rank-top-index">1</span>
               <md-card-media class="rank-top-image">
@@ -136,7 +136,7 @@
               </md-card-header>
             </md-card-media-actions>
           </md-card>
-          <md-list-item v-for="(item, index) in saleRankData" :key="index" to="/123" v-if="index !== 0">
+          <md-list-item v-for="(item, index) in saleRankData" :key="index" v-if="index !== 0" @click="showMovieDetail(index)">
             <span class="rank-item-index" :class="index < 3 ? 'rank-item-index-top' : ''">{{index + 1}}</span>
             <span class="rank-item-name">{{item.name}}</span>
             <span class="rank-item-profit">{{item.profit}}万</span>
@@ -150,7 +150,7 @@
             <span>查看完整榜单</span>
             <md-icon>keyboard_arrow_right</md-icon>
           </md-button>
-          <md-card class="rank-card" md-with-hover>
+          <md-card class="rank-card" md-with-hover @click.native="showMovieDetail(index)">
             <md-card-media-actions class="rank-top-card">
               <span class="rank-top-index">1</span>
               <md-card-media class="rank-top-image">
@@ -162,7 +162,7 @@
               </md-card-header>
             </md-card-media-actions>
           </md-card>
-          <md-list-item v-for="(item, index) in saleRankData" :key="index" to="/123" v-if="index !== 0">
+          <md-list-item v-for="(item, index) in saleRankData" :key="index" v-if="index !== 0" @click="showMovieDetail(index)">
             <span class="rank-item-index" :class="index < 3 ? 'rank-item-index-top' : ''">{{index + 1}}</span>
             <span class="rank-item-name">{{item.name}}</span>
             <span class="rank-item-profit">{{item.profit}}分</span>
@@ -292,6 +292,15 @@
               tagState: index
             }
           })
+        },
+        showMovieDetail: function (id) {
+          let routeUrl = this.$router.resolve({
+            path: "/detail",
+            query: {
+              id:id
+            }
+          });
+          window.open(routeUrl .href, '_blank');
         }
       }
     }
