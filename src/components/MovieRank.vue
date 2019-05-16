@@ -1,60 +1,70 @@
 <template>
   <div class="main-container">
-    <div class="movie-rank-container">
-      <h1 class="movie-rank-title">豆瓣评分TOP100</h1>
-      <div class="movie-rank-list">
-        <div class="movie-rank-item" v-for="(item, index) in movieListOfDouban" :key="index">
-          <div class="movie-index">{{index + 1}}</div>
-          <div>
-            <img class="movie-cover" src="https://p1.meituan.net/movie/b607fba7513e7f15eab170aac1e1400d878112.jpg@160w_220h_1e_1c"/>
-          </div>
-          <div class="movie-info-container">
-            <div class="movie-info-left">
-              <h2 class="movie-info-title">{{item.name}}</h2>
-              <p class="movie-info-text">
-                主演：
-                <span v-for="(actor, actorIndex) in item.actors" :key="actorIndex">
-                  <span v-if="actorIndex !== 0">,</span>
-                  {{actor}}
-                </span>
-              </p>
-              <p class="movie-info-text text-grey">{{item.time}}上映</p>
+    <div class="main-content-container">
+      <div class="movie-rank-container">
+        <h1 class="movie-rank-title">豆瓣评分TOP100</h1>
+        <div class="movie-rank-list">
+          <div class="movie-rank-item" v-for="(item, index) in movieListOfDouban" :key="index">
+            <div class="movie-index">{{index + 1}}</div>
+            <div>
+              <img class="movie-cover" src="https://p1.meituan.net/movie/b607fba7513e7f15eab170aac1e1400d878112.jpg@160w_220h_1e_1c"/>
             </div>
-            <div class="movie-info-right">
-              <div class="movie-info-remark">{{item.remark}}</div>
+            <div class="movie-info-container">
+              <div class="movie-info-left">
+                <h2 class="movie-info-title">{{item.name}}</h2>
+                <p class="movie-info-text">
+                  主演：
+                  <span v-for="(actor, actorIndex) in item.actors" :key="actorIndex">
+                    <span v-if="actorIndex !== 0">,</span>
+                    {{actor}}
+                  </span>
+                </p>
+                <p class="movie-info-text text-grey">{{item.time}}上映</p>
+              </div>
+              <div class="movie-info-right">
+                <div class="movie-info-remark">{{item.remark}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <el-divider class="rank-divider" direction="vertical"></el-divider>
+      <div class="movie-rank-container">
+        <h1 class="movie-rank-title">猫眼评分TOP100</h1>
+        <div class="movie-rank-list">
+          <div class="movie-rank-item" v-for="(item, index) in movieListOfMaoyan" :key="index">
+            <div class="movie-index">{{index + 1}}</div>
+            <div>
+              <img class="movie-cover" src="https://p1.meituan.net/movie/b607fba7513e7f15eab170aac1e1400d878112.jpg@160w_220h_1e_1c"/>
+            </div>
+            <div class="movie-info-container">
+              <div class="movie-info-left">
+                <h2 class="movie-info-title">{{item.name}}</h2>
+                <p class="movie-info-text">
+                  主演：
+                  <span v-for="(actor, actorIndex) in item.actors" :key="actorIndex">
+                    <span v-if="actorIndex !== 0">,</span>
+                    {{actor}}
+                  </span>
+                </p>
+                <p class="movie-info-text text-grey">{{item.time}}上映</p>
+              </div>
+              <div class="movie-info-right">
+                <div class="movie-info-remark">{{item.remark}}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <el-divider class="rank-divider" direction="vertical"></el-divider>
-    <div class="movie-rank-container">
-      <h1 class="movie-rank-title">猫眼评分TOP100</h1>
-      <div class="movie-rank-list">
-        <div class="movie-rank-item" v-for="(item, index) in movieListOfMaoyan" :key="index">
-          <div class="movie-index">{{index + 1}}</div>
-          <div>
-            <img class="movie-cover" src="https://p1.meituan.net/movie/b607fba7513e7f15eab170aac1e1400d878112.jpg@160w_220h_1e_1c"/>
-          </div>
-          <div class="movie-info-container">
-            <div class="movie-info-left">
-              <h2 class="movie-info-title">{{item.name}}</h2>
-              <p class="movie-info-text">
-                主演：
-                <span v-for="(actor, actorIndex) in item.actors" :key="actorIndex">
-                  <span v-if="actorIndex !== 0">,</span>
-                  {{actor}}
-                </span>
-              </p>
-              <p class="movie-info-text text-grey">{{item.time}}上映</p>
-            </div>
-            <div class="movie-info-right">
-              <div class="movie-info-remark">{{item.remark}}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <el-pagination
+      class="page"
+      background
+      layout="prev, pager, next"
+      :total="totalItems"
+      :current-page.sync="currentPage"
+      :page-size="pageSize">
+    </el-pagination>
   </div>
 </template>
 
@@ -186,7 +196,10 @@
                 time: "2020-02-02",
                 actors: ["皮卡丘" , "唐老鸭" , "钢铁侠"]
               }
-            ]
+            ],
+            totalItems: 0,
+            currentPage: 1,
+            pageSize: 10
           }
         }
     }
@@ -194,6 +207,10 @@
 
 <style lang="stylus" scoped>
   .main-container
+    width 100%
+    height 100%
+    padding-bottom 80px
+  .main-content-container
     width 100%
     height 100%
     display flex

@@ -7,11 +7,13 @@ import router from './router'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import ElementUI from 'element-ui'
+import axios from 'axios'
 
 Vue.config.productionTip = false
 
 Vue.use(VueMaterial)
 Vue.use(ElementUI)
+Vue.prototype.$ajax = axios
 
 /* eslint-disable no-new */
 new Vue({
