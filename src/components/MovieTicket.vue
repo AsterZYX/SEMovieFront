@@ -126,8 +126,8 @@
         name: "movie-ticket",
         data() {
           return {
-            value1: 3.7,
             movie: {
+              id: 1,
               name: "大侦探皮卡丘",
               english: "POKÉMON Detective Pikachu",
               tags: ["冒险" , "奇幻" , "喜剧"],
@@ -259,13 +259,14 @@
             return m;
           },
           movieDetail() {
-            // let routeUrl = this.$router.resolve({
-            //   path: "/ticket",
-            //   query: {
-            //     id:index
-            //   }
-            // });
-            // window.open(routeUrl .href, '_blank');
+            let thisVue = this
+            let routeUrl = this.$router.resolve({
+              path: "/detail",
+              query: {
+                id:thisVue.movie.id
+              }
+            });
+            window.open(routeUrl .href, '_blank');
           }
         },
         mounted() {
@@ -336,7 +337,7 @@
     line-height 1.3
   .movie-info-text
     font-size 14px
-    margin-top 5px
+    margin-top 8px
   .movie-info-bottom
     width 100%
     display flex
@@ -346,8 +347,6 @@
     margin-top 20px
   .movie-large-button
     width 190px
-  /*.movie-info-remark*/
-    /*width 200px*/
   .movie-remark-type
     font-size 12px
     margin-bottom 5px

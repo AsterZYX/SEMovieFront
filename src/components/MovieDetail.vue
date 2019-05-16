@@ -1,6 +1,64 @@
 <template>
     <div class="main-container">
-      <div class="movie-detail-container"></div>
+      <div class="movie-detail-container shadow">
+        <div class="movie-image-container">
+          <div class="movie-avatar-shadow">
+            <img class="avatar" src="https://p0.meituan.net/movie/f29c0f9ff0340d00085f4bc1a395ecf02603950.jpg@464w_644h_1e_1c"/>
+          </div>
+        </div>
+        <div class="movie-info-container">
+          <h3 class="movie-info-title">{{movie.name}}</h3>
+          <p class="movie-info-subtitle">{{movie.english}}</p>
+          <p class="movie-info-text">
+            <md-chip v-for="(item, index) in movie.tags" :key="index">{{item}}</md-chip>
+          </p>
+          <p class="movie-info-text">{{movie.region}} / {{movie.duration}}分钟</p>
+          <p class="movie-info-text">{{movie.time}}上映</p>
+          <div class="movie-info-bottom">
+            <div class="movie-info-button">
+              <p>
+                <md-button class="md-dense md-raised md-primary movie-large-button" v-if="movie.state === 0" @click.native="movieTicket">特惠购票</md-button>
+              </p>
+              <p class="movie-small-button">
+                <md-button class="md-dense md-primary">
+                  <md-icon>favorite_border</md-icon>
+                  想看
+                </md-button>
+                <md-button class="md-dense md-primary">
+                  <md-icon>star_border</md-icon>
+                  评分
+                </md-button>
+              </p>
+            </div>
+            <div class="movie-info-remark">
+              <div>
+                <p class="movie-remark-type">豆瓣评分</p>
+                <div class="movie-rank-info-container">
+                  <div class="movie-remark-num">{{movie.remark[0]}}</div>
+                  <div class="movie-remark-image">
+                    <el-rate
+                      v-model="movie.remark[0]"
+                      disabled>
+                    </el-rate>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="movie-remark-type">猫眼评分</p>
+                <div class="movie-rank-info-container">
+                  <div class="movie-remark-num">{{movie.remark[1]}}</div>
+                  <div class="movie-remark-image">
+                    <el-rate
+                      v-model="movie.remark[1]"
+                      disabled>
+                    </el-rate>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="sub-main-container">
         <div class="left-container">
         <md-tabs>
@@ -193,7 +251,35 @@
 
 <script>
     export default {
-        name: "movie-detail"
+        name: "movie-detail",
+        data() {
+          return {
+            movie: {
+              id: 1,
+              name: "大侦探皮卡丘",
+              english: "POKÉMON Detective Pikachu",
+              tags: ["冒险" , "奇幻" , "喜剧"],
+              region: "美国",
+              duration: 104,
+              time: "2019-05-10",
+              remark:[9.6, 9.3],
+              sales: 3.26,
+              state: 0
+            }
+          }
+        },
+        methods: {
+          movieTicket() {
+            let thisVue = this
+            let routeUrl = this.$router.resolve({
+              path: "/ticket",
+              query: {
+                id:thisVue.movie.id
+              }
+            });
+            window.open(routeUrl .href, '_blank');
+          }
+        }
     }
 </script>
 
@@ -204,9 +290,76 @@
     padding 20px 7%
   .movie-detail-container
     width 100%
-    height 400px
-    background-color #eeeeee
-    margin-bottom 20px
+    height 325px
+    margin-bottom  90px
+    position relative
+  .shadow
+    box-shadow 0 12px 8px -12px #ddd
+    border-radius 10px
+  .movie-image-container
+    width 300px
+    height 370px
+    float left
+    position relative
+    top 30px
+    overflow hidden
+    z-index 9
+  .movie-avatar-shadow
+    position relative
+    margin 0 50px
+    width 240px
+    height 370px
+    padding-bottom 40px
+    background url(../../static/img/avatar-shadow.png) no-repeat bottom
+  .avatar
+    border 4px solid #fff
+    height 330px
+    width 240px
+  .movie-info-container
+    position relative
+    float left
+    top 30px
+    height 220px
+    padding 10px 20px
+    text-align left
+  .movie-info-title
+    font-size 26px
+    line-height 32px
+    font-weight 700
+  .movie-info-subtitle
+    font-size 18px
+    margin-bottom 14px
+    line-height 1.3
+  .movie-info-text
+    font-size 14px
+    margin-top 8px
+  .movie-info-bottom
+    width 100%
+    display flex
+  .movie-info-button
+    width 260px
+    display flex
+    flex-direction column-reverse
+  .movie-small-button
+    margin-top 20px
+  .movie-large-button
+    width 190px
+  .movie-remark-type
+    font-size 12px
+    margin-bottom 5px
+  .movie-rank-info-container
+    display flex
+  .movie-remark-num
+    width 60px
+    font-size 30px
+    color #ffc600
+    height 30px
+    line-height 30px
+  .movie-remark-image
+    width 200px
+    height 30px
+    font-size 16px
+    line-height 30px
   .sub-main-container
     width 100%
     height 100%
