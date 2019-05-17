@@ -24,18 +24,18 @@
           <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(movieOnShowList[index].movieid)">
             <md-card-media-cover md-solid>
               <md-card-media>
-                <img src="https://p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@160w_220h_1e_1c" alt="Skyscraper">
+                <img :src="item.poster" alt="poster">
               </md-card-media>
 
               <md-card-area>
                 <md-card-header class="movie-item-cover">
                   <div class="movie-item-cover-container">
                     <div class="movie-item-text movie-item-title">
-                      <span>{{item.name}}
-                          <md-tooltip md-direction="bottom" style="transform: translateY(10px)">{{item.name}}</md-tooltip>
+                      <span>{{item.title}}
+                          <md-tooltip md-direction="bottom" style="transform: translateY(10px)">{{item.title}}</md-tooltip>
                       </span>
                     </div>
-                    <div class="movie-item-text movie-item-remark">{{item.remark}}</div>
+                    <div class="movie-item-text movie-item-remark">{{(item.doubanrating + item.maoyanrating) / 2.0}}</div>
                   </div>
                 </md-card-header>
               </md-card-area>
@@ -60,15 +60,15 @@
             <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(movieNextList[index].movieid)">
               <md-card-media-cover md-solid>
                 <md-card-media>
-                  <img src="https://p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@160w_220h_1e_1c" alt="Skyscraper">
+                  <img :src="item.poster" alt="poster">
                 </md-card-media>
 
                 <md-card-area>
                   <md-card-header class="movie-item-cover">
                     <div class="movie-item-cover-container">
                       <div class="movie-item-text movie-item-title">
-                        <span>{{item.name}}
-                          <md-tooltip md-direction="bottom" style="transform: translateY(10px)">{{item.name}}</md-tooltip>
+                        <span>{{item.title}}
+                          <md-tooltip md-direction="bottom" style="transform: translateY(10px)">{{item.title}}</md-tooltip>
                         </span>
                       </div>
                       <md-button style="height: 30px">
@@ -99,18 +99,18 @@
             <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(movieHotList[index].movieid)">
               <md-card-media-cover md-solid>
                 <md-card-media>
-                  <img src="https://p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@160w_220h_1e_1c" alt="Skyscraper">
+                  <img :src="item.poster" alt="poster">
                 </md-card-media>
 
                 <md-card-area>
                   <md-card-header class="movie-item-cover">
                     <div class="movie-item-cover-container">
                       <div class="movie-item-text movie-item-title">
-                        <span>{{item.name}}
-                          <md-tooltip md-direction="bottom" style="transform: translateY(10px)">{{item.name}}</md-tooltip>
+                        <span>{{item.title}}
+                          <md-tooltip md-direction="bottom" style="transform: translateY(10px)">{{item.title}}</md-tooltip>
                         </span>
                       </div>
-                      <div class="movie-item-text movie-item-remark">{{item.remark}}</div>
+                      <div class="movie-item-text movie-item-remark">{{(item.doubanrating + item.maoyanrating) / 2.0}}</div>
                     </div>
                   </md-card-header>
                 </md-card-area>
@@ -128,18 +128,18 @@
             <md-card-media-actions class="rank-top-card">
               <span class="rank-top-index">1</span>
               <md-card-media class="rank-top-image">
-                <img class="rank-top-img" src="https://p0.meituan.net/mmdb/33005c10b741bcd6271ab9fd2d5194ac2407254.jpg@120w_80h_1e_1c" alt="Cover">
+                <img class="rank-top-img" :src="saleRankData[0].poster" alt="Cover">
               </md-card-media>
               <md-card-header class="rank-card-text">
-                <div class="md-title rank-card-text-title">{{saleRankData[0].name}}</div>
-                <div class="md-subhead rank-card-text-profit">{{saleRankData[0].profit}}万</div>
+                <div class="md-title rank-card-text-title">{{saleRankData[0].title}}</div>
+                <div class="md-subhead rank-card-text-profit">{{saleRankData[0].sale}}万</div>
               </md-card-header>
             </md-card-media-actions>
           </md-card>
           <md-list-item v-for="(item, index) in saleRankData" :key="index" v-if="index !== 0" @click="showMovieDetail(saleRankData[index].movieid)">
             <span class="rank-item-index" :class="index < 3 ? 'rank-item-index-top' : ''">{{index + 1}}</span>
-            <span class="rank-item-name">{{item.name}}</span>
-            <span class="rank-item-profit">{{item.profit}}万</span>
+            <span class="rank-item-name">{{item.title}}</span>
+            <span class="rank-item-profit">{{item.sale}}万</span>
           </md-list-item>
         </md-list>
       </div>
@@ -154,18 +154,18 @@
             <md-card-media-actions class="rank-top-card">
               <span class="rank-top-index">1</span>
               <md-card-media class="rank-top-image">
-                <img class="rank-top-img" src="https://p0.meituan.net/mmdb/33005c10b741bcd6271ab9fd2d5194ac2407254.jpg@120w_80h_1e_1c" alt="Cover">
+                <img class="rank-top-img" :src="remarkRankData[0].poster" alt="Cover">
               </md-card-media>
               <md-card-header class="rank-card-text">
-                <div class="md-title rank-card-text-title">{{saleRankData[0].name}}</div>
-                <div class="md-subhead rank-card-text-profit">{{saleRankData[0].profit}}分</div>
+                <div class="md-title rank-card-text-title">{{remarkRankData[0].title}}</div>
+                <div class="md-subhead rank-card-text-profit">{{(remarkRankData[0].doubanrating + remarkRankData[0].maoyanrating) / 2.0}}分</div>
               </md-card-header>
             </md-card-media-actions>
           </md-card>
           <md-list-item v-for="(item, index) in remarkRankData" :key="index" v-if="index !== 0" @click="showMovieDetail(remarkRankData[index].movieid)">
             <span class="rank-item-index" :class="index < 3 ? 'rank-item-index-top' : ''">{{index + 1}}</span>
-            <span class="rank-item-name">{{item.name}}</span>
-            <span class="rank-item-profit">{{item.profit}}分</span>
+            <span class="rank-item-name">{{item.title}}</span>
+            <span class="rank-item-profit">{{(item.doubanrating + item.maoyanrating) / 2.0}}分</span>
           </md-list-item>
         </md-list>
       </div>

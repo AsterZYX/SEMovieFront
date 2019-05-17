@@ -3,17 +3,17 @@
     <div class="movie-detail-container shadow">
       <div class="movie-image-container">
         <div class="movie-avatar-shadow">
-          <img class="avatar" src="https://p0.meituan.net/movie/f29c0f9ff0340d00085f4bc1a395ecf02603950.jpg@464w_644h_1e_1c"/>
+          <img class="avatar" :src="movie.poster"/>
         </div>
       </div>
       <div class="movie-info-container">
-        <h3 class="movie-info-title">{{movie.name}}</h3>
-        <p class="movie-info-subtitle">{{movie.english}}</p>
+        <h3 class="movie-info-title">{{movie.title}}</h3>
+        <p class="movie-info-subtitle">{{movie.also_known_as}}</p>
         <p class="movie-info-text">
-          <md-chip v-for="(item, index) in movie.tags" :key="index">{{item}}</md-chip>
+          <md-chip v-for="(item, index) in movie.genres" :key="index">{{item}}</md-chip>
         </p>
-        <p class="movie-info-text">{{movie.region}} / {{movie.duration}}分钟</p>
-        <p class="movie-info-text">{{movie.time}}上映</p>
+        <p class="movie-info-text">{{movie.country}} / {{movie.runtime}}分钟</p>
+        <p class="movie-info-text">{{movie.release_date}}上映</p>
         <div class="movie-info-bottom">
           <div class="movie-info-button">
             <p class="movie-small-button">
@@ -34,10 +34,10 @@
             <div>
               <p class="movie-remark-type">豆瓣评分</p>
               <div class="movie-rank-info-container">
-                <div class="movie-remark-num">{{movie.remark[0]}}</div>
+                <div class="movie-remark-num">{{movie.doubanrating}}</div>
                 <div class="movie-remark-image">
                   <el-rate
-                    v-model="movie.remark[0]"
+                    v-model="movie.doubanrating"
                     disabled>
                   </el-rate>
                 </div>
@@ -46,10 +46,10 @@
             <div>
               <p class="movie-remark-type">猫眼评分</p>
               <div class="movie-rank-info-container">
-                <div class="movie-remark-num">{{movie.remark[1]}}</div>
+                <div class="movie-remark-num">{{movie.maoyanrating}}</div>
                 <div class="movie-remark-image">
                   <el-rate
-                    v-model="movie.remark[1]"
+                    v-model="movie.maoyanrating"
                     disabled>
                   </el-rate>
                 </div>
@@ -102,24 +102,24 @@
           <md-table-head class="cinema-item-right">淘票票价格</md-table-head>
           <md-table-head></md-table-head>
         </md-table-row>
-        <md-table-row v-for="(item, index) in cinemaList" :key="index">
+        <md-table-row v-for="(item, index) in maoyancinemaList" :key="index">
           <md-table-cell class="cinema-item">
             <p class="cinema-item-title">{{ item.name }}</p>
-            <p class="text-grey">地址：{{ item.address }}</p>
+            <p class="text-grey">地址：{{ item.location }}</p>
           </md-table-cell>
           <md-table-cell class="cinema-item-right text-grey">
             ￥
-            <span class="text-blue">{{ item.maoyanPrice }}</span>
+            <span class="text-blue">{{ maoyancinemaList[item] }}</span>
             起
           </md-table-cell>
           <md-table-cell class="cinema-item-right text-grey">
             ￥
-            <span class="text-blue">{{ item.doubanPrice }}</span>
+            <span class="text-blue">{{ doubancinemaList[item] }}</span>
             起
           </md-table-cell>
           <md-table-cell class="cinema-item-right text-grey">
             ￥
-            <span class="text-blue">{{ item.taobaoPrice }}</span>
+            <span class="text-blue">{{ taoppcinemaList[item] }}</span>
             起
           </md-table-cell>
           <md-table-cell class="cinema-item-right">
@@ -163,7 +163,193 @@
             brandEnums:["全部" , "幸福蓝海国际影城" , "万达影城" , "金逸影城" , "卢米埃影城" , "中影国际影城" , "横店电影城" , "大地影院" , "UME国际影城" , "海上国际影城" , "星美国际影城" , "耀莱成龙国际影城" , "星河国际影城" , "艾米1895影院" , "沃美影城" , "SFC上影影城" , "保利国际影城" , "CGV影城" , "其他"],
             areaEnums:["全部" , "地铁附近" , "鼓楼区" , "江宁区" , "浦口区" , "六合区" , "栖霞区" , "秦淮区" , "雨花台区" , "玄武区" , "溧水区" , "建邺区" , "高淳区"],
             cinemaEnums:["全部" , "IMAX厅" , "CGS中国巨幕厅" , "杜比全景声厅" , "Dolby Cinema厅" , "RealD厅" , "RealD 6FL厅" , "4DX厅" , "DTS:X 临境音厅" , "儿童厅" , "4K厅" , "4D厅" , "巨幕厅"],
-            cinemaList:[
+            maoyancinemaList:[
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '卢米埃影城',
+                address: '高淳区富克斯5楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              }
+            ],
+            doubancinemaList:[
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '卢米埃影城',
+                address: '高淳区富克斯5楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              },
+              {
+                name: '幸福蓝海国际影城',
+                address: '浦口区柳洲东路189号京新广场4楼',
+                maoyanPrice: 34,
+                doubanPrice: 29,
+                taobaoPrice: 36
+              }
+            ],
+            taoppcinemaList:[
               {
                 name: '幸福蓝海国际影城',
                 address: '浦口区柳洲东路189号京新广场4楼',
@@ -294,10 +480,12 @@
               let page = data.data;
               if (data.code === 0) {
                 thisVue.movie = page
-                thisVue.cinemaList = page.list
+                thisVue.maoyancinemaList = page.maoyancinemaList
+                thisVue.doubancinemaList = page.doubancinemaList
+                thisVue.taoppcinemaList = page.taoppcinemaList
 
-                thisVue.movie.remark[0] = parseFloat((thisVue.movie.remark[0]/2).toFixed(1));
-                thisVue.movie.remark[1] = parseFloat((thisVue.movie.remark[1]/2).toFixed(1));
+                thisVue.movie.maoyanrating = parseFloat((thisVue.movie.maoyanrating/2).toFixed(1));
+                thisVue.movie.doubanrating = parseFloat((thisVue.movie.doubanrating/2).toFixed(1));
               }
             });
           },

@@ -7,22 +7,22 @@
           <div class="movie-rank-item" v-for="(item, index) in movieListOfDouban" :key="index">
             <div class="movie-index">{{index + 1}}</div>
             <div>
-              <img class="movie-cover" src="https://p1.meituan.net/movie/b607fba7513e7f15eab170aac1e1400d878112.jpg@160w_220h_1e_1c"/>
+              <img class="movie-cover" :src="item.poster"/>
             </div>
             <div class="movie-info-container">
               <div class="movie-info-left">
-                <h2 class="movie-info-title">{{item.name}}</h2>
+                <h2 class="movie-info-title">{{item.title}}</h2>
                 <p class="movie-info-text">
                   主演：
-                  <span v-for="(actor, actorIndex) in item.actors" :key="actorIndex">
+                  <span v-for="(actor, actorIndex) in item.actorList" :key="actorIndex">
                     <span v-if="actorIndex !== 0">,</span>
-                    {{actor}}
+                    {{actor.name}}
                   </span>
                 </p>
-                <p class="movie-info-text text-grey">{{item.time}}上映</p>
+                <p class="movie-info-text text-grey">{{item.release_date}}上映</p>
               </div>
               <div class="movie-info-right">
-                <div class="movie-info-remark">{{item.remark}}</div>
+                <div class="movie-info-remark">{{item.doubanrating}}</div>
               </div>
             </div>
           </div>
@@ -35,22 +35,22 @@
           <div class="movie-rank-item" v-for="(item, index) in movieListOfMaoyan" :key="index">
             <div class="movie-index">{{index + 1}}</div>
             <div>
-              <img class="movie-cover" src="https://p1.meituan.net/movie/b607fba7513e7f15eab170aac1e1400d878112.jpg@160w_220h_1e_1c"/>
+              <img class="movie-cover" :src="item.poster"/>
             </div>
             <div class="movie-info-container">
               <div class="movie-info-left">
-                <h2 class="movie-info-title">{{item.name}}</h2>
+                <h2 class="movie-info-title">{{item.title}}</h2>
                 <p class="movie-info-text">
                   主演：
-                  <span v-for="(actor, actorIndex) in item.actors" :key="actorIndex">
+                  <span v-for="(actor, actorIndex) in item.actorList" :key="actorIndex">
                     <span v-if="actorIndex !== 0">,</span>
-                    {{actor}}
+                    {{actor.name}}
                   </span>
                 </p>
-                <p class="movie-info-text text-grey">{{item.time}}上映</p>
+                <p class="movie-info-text text-grey">{{item.release_date}}上映</p>
               </div>
               <div class="movie-info-right">
-                <div class="movie-info-remark">{{item.remark}}</div>
+                <div class="movie-info-remark">{{item.maoyanrating}}</div>
               </div>
             </div>
           </div>

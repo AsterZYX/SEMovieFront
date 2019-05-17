@@ -3,17 +3,17 @@
       <div class="movie-detail-container shadow">
         <div class="movie-image-container">
           <div class="movie-avatar-shadow">
-            <img class="avatar" src="https://p0.meituan.net/movie/f29c0f9ff0340d00085f4bc1a395ecf02603950.jpg@464w_644h_1e_1c"/>
+            <img class="avatar" :src="movie.poster"/>
           </div>
         </div>
         <div class="movie-info-container">
-          <h3 class="movie-info-title">{{movie.name}}</h3>
-          <p class="movie-info-subtitle">{{movie.english}}</p>
+          <h3 class="movie-info-title">{{movie.title}}</h3>
+          <p class="movie-info-subtitle">{{movie.also_known_as}}</p>
           <p class="movie-info-text">
-            <md-chip v-for="(item, index) in movie.tags" :key="index">{{item}}</md-chip>
+            <md-chip v-for="(item, index) in movie.genres" :key="index">{{item}}</md-chip>
           </p>
-          <p class="movie-info-text">{{movie.region}} / {{movie.duration}}分钟</p>
-          <p class="movie-info-text">{{movie.time}}上映</p>
+          <p class="movie-info-text">{{movie.country}} / {{movie.runtime}}分钟</p>
+          <p class="movie-info-text">{{movie.release_date}}上映</p>
           <div class="movie-info-bottom">
             <div class="movie-info-button">
               <p>
@@ -34,10 +34,10 @@
               <div>
                 <p class="movie-remark-type">豆瓣评分</p>
                 <div class="movie-rank-info-container">
-                  <div class="movie-remark-num">{{movie.remark[0]}}</div>
+                  <div class="movie-remark-num">{{movie.doubanrating}}</div>
                   <div class="movie-remark-image">
                     <el-rate
-                      v-model="movie.remark[0]"
+                      v-model="movie.doubanrating"
                       disabled>
                     </el-rate>
                   </div>
@@ -46,10 +46,10 @@
               <div>
                 <p class="movie-remark-type">猫眼评分</p>
                 <div class="movie-rank-info-container">
-                  <div class="movie-remark-num">{{movie.remark[1]}}</div>
+                  <div class="movie-remark-num">{{movie.maoyanrating}}</div>
                   <div class="movie-remark-image">
                     <el-rate
-                      v-model="movie.remark[1]"
+                      v-model="movie.maoyanrating"
                       disabled>
                     </el-rate>
                   </div>
@@ -67,7 +67,7 @@
                 <div class="sub-item-title-container">
                   <h3 class="sub-title">剧情简介</h3>
                 </div>
-                <span>蒂姆·古德曼（贾斯提斯·史密斯 饰） 为寻找下落不明的父亲来到莱姆市，意外与父亲的前宝可梦搭档大侦探皮卡丘（瑞恩·雷诺兹 配音）相遇，并惊讶地发现自己是唯一能听懂皮卡丘说话的人类，他们决定组队踏上揭开真相的刺激冒险之路。探案过程中他们邂逅了各式各样的宝可梦，并意外发现了一个足以毁灭整个宝可梦宇宙的惊天阴谋。</span>
+                <span>{{movie.plot_simple}}</span>
               </div>
               <div class="sub-item" style="margin-top: 100px">
                 <div class="sub-item-title-container">
@@ -77,10 +77,10 @@
                   <div>
                     <div class="staff-job">导演</div>
                     <div class="staff-pic">
-                      <img src="https://p0.meituan.net/moviemachine/2f8736d506a97452db2715477713380e171382.jpg@128w_170h_1e_1c"/>
+                      <img :src="movie.directors.url"/>
                     </div>
                     <div class="staff-name">
-                      罗伯·莱特曼
+                      {{movie.directors.name}}
                     </div>
                   </div>
                   <div style="margin-left: 30px">
@@ -216,7 +216,7 @@
             <div class="sub-item-title-container">
               <h3 class="sub-title">累积票房</h3>
             </div>
-            <span class="ticket-num">3.38</span>
+            <span class="ticket-num">{{movie.sale}}</span>
             <span>亿</span>
           </div>
           <div class="sub-item" style="margin-top: 100px">

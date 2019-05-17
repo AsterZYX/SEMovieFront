@@ -39,14 +39,14 @@
         <md-card class="movie-item-card" md-with-hover @click.native="chooseMovie(index)">
           <md-card-media-cover md-solid>
             <md-card-media>
-              <img src="https://p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@160w_220h_1e_1c" alt="Skyscraper">
+              <img :src="item.poster" alt="poster">
             </md-card-media>
 
             <md-card-area>
               <md-card-header class="movie-item-cover">
                 <div class="movie-item-cover-container">
-                  <div class="movie-item-text movie-item-title">{{item.name}}</div>
-                  <div class="movie-item-text movie-item-remark">{{item.remark}}</div>
+                  <div class="movie-item-text movie-item-title">{{item.title}}</div>
+                  <div class="movie-item-text movie-item-remark">{{(item.doubanrating + item.maoyanrating) / 2.0}}</div>
                 </div>
               </md-card-header>
             </md-card-area>
