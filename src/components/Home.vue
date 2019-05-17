@@ -21,7 +21,7 @@
       </el-carousel>
       <div class="movie-list-container">
         <div class="movie-item" v-for="(item, index) in movieOnShowList" :key="index">
-          <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(index)">
+          <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(movieOnShowList[index].movieid)">
             <md-card-media-cover md-solid>
               <md-card-media>
                 <img src="https://p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@160w_220h_1e_1c" alt="Skyscraper">
@@ -57,7 +57,7 @@
         <md-divider style="margin-bottom: 20px"></md-divider>
         <div class="movie-list-container">
           <div class="movie-item" v-for="(item, index) in movieNextList" :key="index">
-            <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(index)">
+            <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(movieNextList[index].movieid)">
               <md-card-media-cover md-solid>
                 <md-card-media>
                   <img src="https://p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@160w_220h_1e_1c" alt="Skyscraper">
@@ -96,7 +96,7 @@
         <md-divider style="margin-bottom: 20px"></md-divider>
         <div class="movie-list-container">
           <div class="movie-item" v-for="(item, index) in movieHotList" :key="index">
-            <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(index)">
+            <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(movieHotList[index].movieid)">
               <md-card-media-cover md-solid>
                 <md-card-media>
                   <img src="https://p1.meituan.net/movie/d28b729ffe72353a72d1e7ef8a9b90591544978.jpg@160w_220h_1e_1c" alt="Skyscraper">
@@ -136,7 +136,7 @@
               </md-card-header>
             </md-card-media-actions>
           </md-card>
-          <md-list-item v-for="(item, index) in saleRankData" :key="index" v-if="index !== 0" @click="showMovieDetail(index)">
+          <md-list-item v-for="(item, index) in saleRankData" :key="index" v-if="index !== 0" @click="showMovieDetail(saleRankData[index].movieid)">
             <span class="rank-item-index" :class="index < 3 ? 'rank-item-index-top' : ''">{{index + 1}}</span>
             <span class="rank-item-name">{{item.name}}</span>
             <span class="rank-item-profit">{{item.profit}}万</span>
@@ -162,7 +162,7 @@
               </md-card-header>
             </md-card-media-actions>
           </md-card>
-          <md-list-item v-for="(item, index) in saleRankData" :key="index" v-if="index !== 0" @click="showMovieDetail(index)">
+          <md-list-item v-for="(item, index) in remarkRankData" :key="index" v-if="index !== 0" @click="showMovieDetail(remarkRankData[index].movieid)">
             <span class="rank-item-index" :class="index < 3 ? 'rank-item-index-top' : ''">{{index + 1}}</span>
             <span class="rank-item-name">{{item.name}}</span>
             <span class="rank-item-profit">{{item.profit}}分</span>
@@ -180,6 +180,48 @@
         data(){
           return{
             saleRankData:[
+              {
+                name: '大侦探皮卡丘',
+                profit: 350.9
+              },
+              {
+                name: '何以为家',
+                profit: 123.9
+              },
+              {
+                name: '何以为家',
+                profit: 123.9
+              },
+              {
+                name: '何以为家',
+                profit: 123.9
+              },
+              {
+                name: '何以为家',
+                profit: 123.9
+              },
+              {
+                name: '何以为家',
+                profit: 123.9
+              },
+              {
+                name: '何以为家',
+                profit: 123.9
+              },
+              {
+                name: '何以为家',
+                profit: 123.9
+              },
+              {
+                name: '何以为家',
+                profit: 123.9
+              },
+              {
+                name: '何以为家',
+                profit: 123.9
+              }
+            ],
+            remarkRankData:[
               {
                 name: '大侦探皮卡丘',
                 profit: 350.9
@@ -284,6 +326,69 @@
             ]
           }
         },
+      created() {
+        let thisVue = this;
+        this.$ajax.get('/movie/now',{
+          params: {
+            size: 4,
+            page: 1
+          }
+        }).then((response) => {
+          let data = response.data;
+          let page = data.data;
+          if (data.code === 0) {
+            thisVue.movieOnShowList = page
+          }
+        });
+        this.$ajax.get('/movie/next',{
+          params: {
+            size: 4,
+            page: 1
+          }
+        }).then((response) => {
+          let data = response.data;
+          let page = data.data;
+          if (data.code === 0) {
+            thisVue.movieNextList = page
+          }
+        });
+        this.$ajax.get('/movie/hot',{
+          params: {
+            size: 4,
+            page: 1
+          }
+        }).then((response) => {
+          let data = response.data;
+          let page = data.data;
+          if (data.code === 0) {
+            thisVue.movieHotList = page
+          }
+        });
+        this.$ajax.get('/movie/list/sales',{
+          params: {
+            size: 10,
+            page: 1
+          }
+        }).then((response) => {
+          let data = response.data;
+          let page = data.data;
+          if (data.code === 0) {
+            thisVue.saleRankData = page
+          }
+        });
+        this.$ajax.get('/movie/list/score',{
+          params: {
+            size: 10,
+            page: 1
+          }
+        }).then((response) => {
+          let data = response.data;
+          let page = data.data;
+          if (data.code === 0) {
+            thisVue.remarkRankData = page
+          }
+        });
+      },
       methods: {
         showAllMovies: function (index) {
           this.$router.push({
@@ -295,7 +400,7 @@
         },
         showMovieDetail: function (id) {
           let routeUrl = this.$router.resolve({
-            path: "/detail",
+            path: '/detail',
             query: {
               id:id
             }

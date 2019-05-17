@@ -201,6 +201,26 @@
             currentPage: 1,
             pageSize: 10
           }
+        },
+        created() {
+          this.initRankList();
+        },
+        methods: {
+          initRankList() {
+            let thisVue = this;
+            this.$ajax.get('/movie/list/score',{
+              params: {
+                size: 10,
+                page: thisVue.currentPage
+              }
+            }).then((response) => {
+              let data = response.data;
+              let page = data.data;
+              if (data.code === 0) {
+                // thisVue.remarkRankData = page
+              }
+            });
+          }
         }
     }
 </script>

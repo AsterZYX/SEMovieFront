@@ -163,7 +163,6 @@
             brandEnums:["全部" , "幸福蓝海国际影城" , "万达影城" , "金逸影城" , "卢米埃影城" , "中影国际影城" , "横店电影城" , "大地影院" , "UME国际影城" , "海上国际影城" , "星美国际影城" , "耀莱成龙国际影城" , "星河国际影城" , "艾米1895影院" , "沃美影城" , "SFC上影影城" , "保利国际影城" , "CGV影城" , "其他"],
             areaEnums:["全部" , "地铁附近" , "鼓楼区" , "江宁区" , "浦口区" , "六合区" , "栖霞区" , "秦淮区" , "雨花台区" , "玄武区" , "溧水区" , "建邺区" , "高淳区"],
             cinemaEnums:["全部" , "IMAX厅" , "CGS中国巨幕厅" , "杜比全景声厅" , "Dolby Cinema厅" , "RealD厅" , "RealD 6FL厅" , "4DX厅" , "DTS:X 临境音厅" , "儿童厅" , "4K厅" , "4D厅" , "巨幕厅"],
-            sortType: 'heat',
             cinemaList:[
               {
                 name: '幸福蓝海国际影城',
@@ -262,18 +261,61 @@
             pageSize: 12
           }
         },
+        mounted() {
+          for (let i = 0; i < 7; i++) {
+            if (i === 0) {
+              this.timeEnums.push("今天" + this.getDay(0));
+            } else if (i === 1) {
+              this.timeEnums.push("明天" + this.getDay(1));
+            } else if (i === 2) {
+              this.timeEnums.push("后天" + this.getDay(2));
+            } else {
+              this.timeEnums.push(this.getWeek(i) + this.getDay(i))
+            }
+          }
+          this.initCinemaList();
+        },
         methods: {
+          initCinemaList() {
+            let id = this.$route.query.id;
+            let thisVue = this;
+            this.$ajax.get('/movie/ticket',{
+              params: {
+                id: id,
+                size: 12,
+                page: thisVue.currentPage,
+                time: thisVue.getDay(thisVue.timeIndex),
+                brand: thisVue.brandIndex,
+                area: thisVue.areaIndex,
+                cinema: thisVue.cinemaIndex
+              }
+            }).then((response) => {
+              let data = response.data;
+              let page = data.data;
+              if (data.code === 0) {
+                thisVue.movie = page
+                thisVue.cinemaList = page.list
+
+                thisVue.movie.remark[0] = parseFloat((thisVue.movie.remark[0]/2).toFixed(1));
+                thisVue.movie.remark[1] = parseFloat((thisVue.movie.remark[1]/2).toFixed(1));
+              }
+            });
+          },
           chooseCinemaTime(index) {
-            this.timeIndex = index
+            this.timeIndex = index;
+            this.initCinemaList();
           },
           chooseCinemaBrand(index) {
-            this.brandIndex = index
+            this.brandIndex = index;
+            this.initCinemaList();
           },
           chooseCinemaArea(index) {
-            this.areaIndex = index
+            this.areaIndex = index;
+            this.initCinemaList();
           },
           chooseCinemaType(index) {
-            this.cinemaIndex = index
+            this.cinemaIndex = index;
+            this.initCinemaList();
           },
           getWeek(i) {
             let result;
@@ -307,27 +349,11 @@
             let routeUrl = this.$router.resolve({
               path: "/detail",
               query: {
-                id:thisVue.movie.id
+                id:thisVue.movie.movieid
               }
             });
             window.open(routeUrl .href, '_blank');
           }
-        },
-        mounted() {
-          console.log(this.$route.query.id);
-          for (let i = 0; i < 7; i++) {
-            if (i === 0) {
-              this.timeEnums.push("今天" + this.getDay(0));
-            } else if (i === 1) {
-              this.timeEnums.push("明天" + this.getDay(1));
-            } else if (i === 2) {
-              this.timeEnums.push("后天" + this.getDay(2));
-            } else {
-              this.timeEnums.push(this.getWeek(i) + this.getDay(i))
-            }
-          }
-          this.movie.remark[0] = parseFloat((this.movie.remark[0]/2).toFixed(1));
-          this.movie.remark[1] = parseFloat((this.movie.remark[1]/2).toFixed(1));
         }
     }
 </script>

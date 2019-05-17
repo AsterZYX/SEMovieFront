@@ -138,32 +138,62 @@
             pageSize: 30
           }
         },
+        created() {
+          this.initMovieList();
+        },
         mounted(){
           if(this.$route.query.tagState){
             this.stateIndex = this.$route.query.tagState;
+            this.initMovieList();
 
             let element = document.getElementsByClassName('md-scrollbar')[0];
             element.scrollTop = 0;
           }
         },
         methods: {
+          initMovieList() {
+            let thisVue = this;
+            this.$ajax.get('/movie/list/search',{
+              params: {
+                size: 30,
+                page: thisVue.currentPage,
+                keyword: '',
+                type: thisVue.typeIndex,
+                region: thisVue.regionIndex,
+                time: thisVue.timeIndex,
+                state: thisVue.stateIndex,
+                sort: thisVue.sortType
+              }
+            }).then((response) => {
+              let data = response.data;
+              let page = data.data;
+              if (data.code === 0) {
+                thisVue.movieList = page
+              }
+            });
+          },
           chooseMovieState(index) {
-            this.stateIndex = index
+            this.stateIndex = index;
+            this.initMovieList();
           },
           chooseMovieType(index) {
-            this.typeIndex = index
+            this.typeIndex = index;
+            this.initMovieList();
           },
           chooseMovieRegion(index) {
-            this.regionIndex = index
+            this.regionIndex = index;
+            this.initMovieList();
           },
           chooseMovieTime(index) {
-            this.timeIndex = index
+            this.timeIndex = index;
+            this.initMovieList();
           },
           chooseMovie(index) {
+            let thisVue = this;
             let routeUrl = this.$router.resolve({
               path: "/detail",
               query: {
-                id:index
+                id: thisVue.movieList[index].movieid
               }
             });
             window.open(routeUrl .href, '_blank');

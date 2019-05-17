@@ -268,13 +268,28 @@
             }
           }
         },
+        mounted() {
+          let id = this.$route.query.id;
+          let thisVue = this;
+          this.$ajax.get('/movie/detail',{
+            params: {
+              id: id
+            }
+          }).then((response) => {
+            let data = response.data;
+            let page = data.data;
+            if (data.code === 0) {
+              thisVue.movie = page
+            }
+          });
+        },
         methods: {
           movieTicket() {
             let thisVue = this
             let routeUrl = this.$router.resolve({
               path: "/ticket",
               query: {
-                id:thisVue.movie.id
+                id:thisVue.movie.movieid
               }
             });
             window.open(routeUrl .href, '_blank');
