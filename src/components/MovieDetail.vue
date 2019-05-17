@@ -77,45 +77,21 @@
                   <div>
                     <div class="staff-job">导演</div>
                     <div class="staff-pic">
-                      <img :src="movie.directors.url"/>
+                      <img :src="movie.directorList[0].img"/>
                     </div>
                     <div class="staff-name">
-                      {{movie.directors.name}}
+                      {{movie.directorList[0].name}}
                     </div>
                   </div>
                   <div style="margin-left: 30px">
                     <div class="staff-job">演员</div>
                     <div style="display: flex">
-                      <div class="staff-container">
+                      <div class="staff-container" v-for="(item, index) in movie.actorList" v-if="index < 5" :key="index">
                         <div class="staff-pic">
-                          <img src="https://p0.meituan.net/moviemachine/8e678371445e379c7b749702154888b7184520.jpg@128w_170h_1e_1c"/>
+                          <img :src="item.img"/>
                         </div>
                         <div class="staff-name">
-                          瑞安·雷诺兹
-                        </div>
-                      </div>
-                      <div class="staff-container">
-                        <div class="staff-pic">
-                          <img src="https://p0.meituan.net/moviemachine/8e678371445e379c7b749702154888b7184520.jpg@128w_170h_1e_1c"/>
-                        </div>
-                        <div class="staff-name">
-                          瑞安·雷诺兹
-                        </div>
-                      </div>
-                      <div class="staff-container">
-                        <div class="staff-pic">
-                          <img src="https://p0.meituan.net/moviemachine/8e678371445e379c7b749702154888b7184520.jpg@128w_170h_1e_1c"/>
-                        </div>
-                        <div class="staff-name">
-                          瑞安·雷诺兹
-                        </div>
-                      </div>
-                      <div class="staff-container">
-                        <div class="staff-pic">
-                          <img src="https://p0.meituan.net/moviemachine/8e678371445e379c7b749702154888b7184520.jpg@128w_170h_1e_1c"/>
-                        </div>
-                        <div class="staff-name">
-                          瑞安·雷诺兹
+                          {{item.name}}
                         </div>
                       </div>
                     </div>
@@ -127,81 +103,25 @@
               <div class="second-tab-container">
                 <div class="director-container">
                   <div>
-                    <div class="staff-job">导演 ( 1 )</div>
+                    <div class="staff-job">导演 ( {{movie.directorList.length}} )</div>
                     <div class="staff-pic">
-                      <img src="https://p0.meituan.net/moviemachine/2f8736d506a97452db2715477713380e171382.jpg@128w_170h_1e_1c"/>
+                      <img :src="movie.directorList[0].img"/>
                     </div>
                     <div class="staff-name">
-                      罗伯·莱特曼
+                      {{ movie.directorList[0].name }}
                     </div>
                   </div>
                 </div>
                 <div class="staff-detail-container">
                   <div>
-                    <div class="staff-job">演员 ( 35 )</div>
+                    <div class="staff-job">演员 ( {{movie.actorList.length}} )</div>
                     <div class="staff-detail-list-container">
-                      <div class="staff-detail">
+                      <div class="staff-detail" v-for="(item, index) in movie.actorList" :key="index">
                         <div class="staff-pic">
-                          <img src="https://p0.meituan.net/moviemachine/8e678371445e379c7b749702154888b7184520.jpg@128w_170h_1e_1c"/>
+                          <img :src="item.img"/>
                         </div>
                         <div class="staff-name">
-                          瑞安·雷诺兹
-                        </div>
-                      </div>
-                      <div class="staff-detail">
-                        <div class="staff-pic">
-                          <img src="https://p0.meituan.net/moviemachine/8e678371445e379c7b749702154888b7184520.jpg@128w_170h_1e_1c"/>
-                        </div>
-                        <div class="staff-name">
-                          瑞安·雷诺兹
-                        </div>
-                      </div>
-                      <div class="staff-detail">
-                        <div class="staff-pic">
-                          <img src="https://p0.meituan.net/moviemachine/8e678371445e379c7b749702154888b7184520.jpg@128w_170h_1e_1c"/>
-                        </div>
-                        <div class="staff-name">
-                          瑞安·雷诺兹
-                        </div>
-                      </div>
-                      <div class="staff-detail">
-                        <div class="staff-pic">
-                          <img src="https://p0.meituan.net/moviemachine/8e678371445e379c7b749702154888b7184520.jpg@128w_170h_1e_1c"/>
-                        </div>
-                        <div class="staff-name">
-                          瑞安·雷诺兹
-                        </div>
-                      </div>
-                      <div class="staff-detail">
-                        <div class="staff-pic">
-                          <img src="https://p0.meituan.net/moviemachine/8e678371445e379c7b749702154888b7184520.jpg@128w_170h_1e_1c"/>
-                        </div>
-                        <div class="staff-name">
-                          瑞安·雷诺兹
-                        </div>
-                      </div>
-                      <div class="staff-detail">
-                        <div class="staff-pic">
-                          <img src="https://p0.meituan.net/moviemachine/8e678371445e379c7b749702154888b7184520.jpg@128w_170h_1e_1c"/>
-                        </div>
-                        <div class="staff-name">
-                          瑞安·雷诺兹
-                        </div>
-                      </div>
-                      <div class="staff-detail">
-                        <div class="staff-pic">
-                          <img src="https://p0.meituan.net/moviemachine/8e678371445e379c7b749702154888b7184520.jpg@128w_170h_1e_1c"/>
-                        </div>
-                        <div class="staff-name">
-                          瑞安·雷诺兹
-                        </div>
-                      </div>
-                      <div class="staff-detail">
-                        <div class="staff-pic">
-                          <img src="https://p0.meituan.net/moviemachine/8e678371445e379c7b749702154888b7184520.jpg@128w_170h_1e_1c"/>
-                        </div>
-                        <div class="staff-name">
-                          瑞安·雷诺兹
+                          {{ item.name }}
                         </div>
                       </div>
                     </div>
@@ -224,23 +144,8 @@
               <h3 class="sub-title">图集</h3>
             </div>
             <div class="pic-list-container">
-              <div class="pic-container">
-                <img src="https://p0.meituan.net/movie/22e8b050f48d62105229263db818caa0145688.jpg@126w_126h_1e_1c"/>
-              </div>
-              <div class="pic-container">
-                <img src="https://p0.meituan.net/movie/22e8b050f48d62105229263db818caa0145688.jpg@126w_126h_1e_1c"/>
-              </div>
-              <div class="pic-container">
-                <img src="https://p0.meituan.net/movie/22e8b050f48d62105229263db818caa0145688.jpg@126w_126h_1e_1c"/>
-              </div>
-              <div class="pic-container">
-                <img src="https://p0.meituan.net/movie/22e8b050f48d62105229263db818caa0145688.jpg@126w_126h_1e_1c"/>
-              </div>
-              <div class="pic-container">
-                <img src="https://p0.meituan.net/movie/22e8b050f48d62105229263db818caa0145688.jpg@126w_126h_1e_1c"/>
-              </div>
-              <div class="pic-container">
-                <img src="https://p0.meituan.net/movie/22e8b050f48d62105229263db818caa0145688.jpg@126w_126h_1e_1c"/>
+              <div class="pic-container" v-for="(item, index) in movie.picList" :key="index">
+                <img :src="item"/>
               </div>
             </div>
           </div>
