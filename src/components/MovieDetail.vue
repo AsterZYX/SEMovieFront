@@ -17,7 +17,7 @@
           <div class="movie-info-bottom">
             <div class="movie-info-button">
               <p>
-                <md-button class="md-dense md-raised md-primary movie-large-button" v-if="movie.state === 0" @click.native="movieTicket">特惠购票</md-button>
+                <md-button class="md-dense md-raised md-primary movie-large-button" v-show="show === '0'" @click.native="movieTicket">特惠购票</md-button>
               </p>
               <p class="movie-small-button">
                 <md-button class="md-dense md-primary">
@@ -159,6 +159,7 @@
         name: "movie-detail",
         data() {
           return {
+            show: 0,
             movie: {
               id: 1,
               name: "大侦探皮卡丘",
@@ -174,7 +175,7 @@
           }
         },
         created() {
-          this.movie.state = this.$route.query.state;
+          this.show = this.$route.query.state;
         },
         mounted() {
           let id = this.$route.query.id;
@@ -199,8 +200,7 @@
             let routeUrl = this.$router.resolve({
               path: "/ticket",
               query: {
-                id: thisVue.movie.movieid,
-                title: thisVue.movie.title
+                movie: JSON.stringify(thisVue.movie)
               }
             });
             window.open(routeUrl .href, '_blank');

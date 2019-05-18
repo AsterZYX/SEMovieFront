@@ -109,17 +109,17 @@
           </md-table-cell>
           <md-table-cell class="cinema-item-right text-grey">
             ￥
-            <span class="text-blue">{{ maoyancinemaList[item] }}</span>
+            <span class="text-blue">{{ maoyancinemaList[index].price }}</span>
             起
           </md-table-cell>
           <md-table-cell class="cinema-item-right text-grey">
             ￥
-            <span class="text-blue">{{ doubancinemaList[item] }}</span>
+            <span class="text-blue">{{ doubancinemaList[index].price }}</span>
             起
           </md-table-cell>
           <md-table-cell class="cinema-item-right text-grey">
             ￥
-            <span class="text-blue">{{ taoppcinemaList[item] }}</span>
+            <span class="text-blue">{{ taoppcinemaList[index].price }}</span>
             起
           </md-table-cell>
           <md-table-cell class="cinema-item-right">
@@ -463,15 +463,16 @@
         },
         methods: {
           initCinemaList() {
-            let id = this.$route.query.id;
-            let title = this.$route.query.title;
+            console.log(this.$route.query.movie);
+            let movie = JSON.parse(this.$route.query.movie);
+            this.movie = movie;
             let thisVue = this;
             this.$ajax.get('/movie/ticket',{
               params: {
-                id: id,
+                id: movie.movieid,
                 size: 12,
                 page: thisVue.currentPage,
-                title: title,
+                title: movie.title,
                 showDate: '2019-' + thisVue.getDay(thisVue.timeIndex),
                 brand: thisVue.brandIndex,
                 area: thisVue.areaIndex,
@@ -481,11 +482,9 @@
               let data = response.data;
               let page = data.data;
               if (data.code === 0) {
-                thisVue.movie = page
-                thisVue.maoyancinemaList = page.maoyancinemaList
-                thisVue.doubancinemaList = page.doubancinemaList
-                thisVue.taoppcinemaList = page.taoppcinemaList
-                console.log(page.maoyancinemaList)
+                thisVue.maoyancinemaList = page.maoyancinemaList;
+                thisVue.doubancinemaList = page.maoyancinemaList;
+                thisVue.taoppcinemaList = page.taoppcinemaList;
 
                 thisVue.movie.maoyanrating = parseFloat((thisVue.movie.maoyanrating/2).toFixed(1));
                 thisVue.movie.doubanrating = parseFloat((thisVue.movie.doubanrating/2).toFixed(1));
