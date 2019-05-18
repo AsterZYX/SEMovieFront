@@ -21,7 +21,7 @@
       </el-carousel>
       <div class="movie-list-container">
         <div class="movie-item" v-for="(item, index) in movieOnShowList" :key="index">
-          <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(movieOnShowList[index].movieid)">
+          <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(movieOnShowList[index].movieid, movieOnShowList[index].title)">
             <md-card-media-cover md-solid>
               <md-card-media>
                 <img :src="item.poster" alt="poster">
@@ -57,7 +57,7 @@
         <md-divider style="margin-bottom: 20px"></md-divider>
         <div class="movie-list-container">
           <div class="movie-item" v-for="(item, index) in movieNextList" :key="index">
-            <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(movieNextList[index].movieid)">
+            <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(movieNextList[index].movieid, movieNextList[index].title)">
               <md-card-media-cover md-solid>
                 <md-card-media>
                   <img :src="item.poster" alt="poster">
@@ -96,7 +96,7 @@
         <md-divider style="margin-bottom: 20px"></md-divider>
         <div class="movie-list-container">
           <div class="movie-item" v-for="(item, index) in movieHotList" :key="index">
-            <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(movieHotList[index].movieid)">
+            <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(movieHotList[index].movieid, movieHotList[index].title)">
               <md-card-media-cover md-solid>
                 <md-card-media>
                   <img :src="item.poster" alt="poster">
@@ -124,7 +124,7 @@
       <div class="sale-rank-container">
         <md-list>
           <md-subheader class="rank-title">今日票房</md-subheader>
-          <md-card class="rank-card" md-with-hover @click.native="showMovieDetail(index)">
+          <md-card class="rank-card" md-with-hover @click.native="showMovieDetail(movieOnShowList[0].movieid, movieOnShowList[0].title)">
             <md-card-media-actions class="rank-top-card">
               <span class="rank-top-index">1</span>
               <md-card-media class="rank-top-image">
@@ -136,7 +136,7 @@
               </md-card-header>
             </md-card-media-actions>
           </md-card>
-          <md-list-item v-for="(item, index) in saleRankData" :key="index" v-if="index !== 0" @click="showMovieDetail(saleRankData[index].movieid)">
+          <md-list-item v-for="(item, index) in saleRankData" :key="index" v-if="index !== 0" @click="showMovieDetail(saleRankData[index].movieid, saleRankData[index].title)">
             <span class="rank-item-index" :class="index < 3 ? 'rank-item-index-top' : ''">{{index + 1}}</span>
             <span class="rank-item-name">{{item.title}}</span>
             <span class="rank-item-profit">{{item.sale}}万</span>
@@ -150,7 +150,7 @@
             <span>查看完整榜单</span>
             <md-icon>keyboard_arrow_right</md-icon>
           </md-button>
-          <md-card class="rank-card" md-with-hover @click.native="showMovieDetail(index)">
+          <md-card class="rank-card" md-with-hover @click.native="showMovieDetail(remarkRankData[0].movieid, remarkRankData[index].title)">
             <md-card-media-actions class="rank-top-card">
               <span class="rank-top-index">1</span>
               <md-card-media class="rank-top-image">
@@ -162,7 +162,7 @@
               </md-card-header>
             </md-card-media-actions>
           </md-card>
-          <md-list-item v-for="(item, index) in remarkRankData" :key="index" v-if="index !== 0" @click="showMovieDetail(remarkRankData[index].movieid)">
+          <md-list-item v-for="(item, index) in remarkRankData" :key="index" v-if="index !== 0" @click="showMovieDetail(remarkRankData[index].movieid, remarkRankData[index].title)">
             <span class="rank-item-index" :class="index < 3 ? 'rank-item-index-top' : ''">{{index + 1}}</span>
             <span class="rank-item-name">{{item.title}}</span>
             <span class="rank-item-profit">{{(item.doubanrating + item.maoyanrating) / 2.0}}分</span>
@@ -376,7 +376,7 @@
             thisVue.saleRankData = page
           }
         });
-        this.$ajax.get('/movie/list/score',{
+        this.$ajax.get('/movie/list/score/maoyan',{
           params: {
             size: 10,
             page: 1
@@ -398,11 +398,12 @@
             }
           })
         },
-        showMovieDetail: function (id) {
+        showMovieDetail: function (id, title) {
           let routeUrl = this.$router.resolve({
             path: '/detail',
             query: {
-              id:id
+              id:id,
+              title: title
             }
           });
           window.open(routeUrl .href, '_blank');

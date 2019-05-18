@@ -175,16 +175,19 @@
         },
         mounted() {
           let id = this.$route.query.id;
+          let title = this.$route.query.title;
           let thisVue = this;
           this.$ajax.get('/movie/detail',{
             params: {
-              id: id
+              id: id,
+              title: title
             }
           }).then((response) => {
             let data = response.data;
             let page = data.data;
             if (data.code === 0) {
               thisVue.movie = page
+              console.log(page)
             }
           });
         },
@@ -194,7 +197,8 @@
             let routeUrl = this.$router.resolve({
               path: "/ticket",
               query: {
-                id:thisVue.movie.movieid
+                id: thisVue.movie.movieid,
+                title: thisVue.movie.title
               }
             });
             window.open(routeUrl .href, '_blank');

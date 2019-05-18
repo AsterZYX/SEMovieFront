@@ -464,13 +464,15 @@
         methods: {
           initCinemaList() {
             let id = this.$route.query.id;
+            let title = this.$route.query.id;
             let thisVue = this;
             this.$ajax.get('/movie/ticket',{
               params: {
                 id: id,
                 size: 12,
                 page: thisVue.currentPage,
-                time: thisVue.getDay(thisVue.timeIndex),
+                title: title,
+                showDate: '2019-' + thisVue.getDay(thisVue.timeIndex),
                 brand: thisVue.brandIndex,
                 area: thisVue.areaIndex,
                 cinema: thisVue.cinemaIndex
