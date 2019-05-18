@@ -34,10 +34,10 @@
               <div>
                 <p class="movie-remark-type">豆瓣评分</p>
                 <div class="movie-rank-info-container">
-                  <div class="movie-remark-num">{{movie.doubanrating}}</div>
+                  <div class="movie-remark-num">{{movie.doubanrating / 2.0}}</div>
                   <div class="movie-remark-image">
                     <el-rate
-                      v-model="movie.doubanrating"
+                      v-model="movie.doubanrating / 2.0"
                       disabled>
                     </el-rate>
                   </div>
@@ -46,10 +46,10 @@
               <div>
                 <p class="movie-remark-type">猫眼评分</p>
                 <div class="movie-rank-info-container">
-                  <div class="movie-remark-num">{{movie.maoyanrating}}</div>
+                  <div class="movie-remark-num">{{movie.maoyanrating / 2.0}}</div>
                   <div class="movie-remark-image">
                     <el-rate
-                      v-model="movie.maoyanrating"
+                      v-model="movie.maoyanrating / 2.0"
                       disabled>
                     </el-rate>
                   </div>
@@ -173,6 +173,9 @@
             }
           }
         },
+        created() {
+          this.movie.state = this.$route.query.state;
+        },
         mounted() {
           let id = this.$route.query.id;
           let title = this.$route.query.title;
@@ -187,7 +190,6 @@
             let page = data.data;
             if (data.code === 0) {
               thisVue.movie = page
-              console.log(page)
             }
           });
         },

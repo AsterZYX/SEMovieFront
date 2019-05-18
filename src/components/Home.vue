@@ -60,7 +60,7 @@
             <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(movieNextList[index].movieid, movieNextList[index].title)">
               <md-card-media-cover md-solid>
                 <md-card-media>
-                  <img :src="item.poster" alt="poster">
+                  <img :src="item.cover" alt="poster">
                 </md-card-media>
 
                 <md-card-area>
@@ -132,7 +132,7 @@
               </md-card-media>
               <md-card-header class="rank-card-text">
                 <div class="md-title rank-card-text-title">{{saleRankData[0].title}}</div>
-                <div class="md-subhead rank-card-text-profit">{{saleRankData[0].sale}}万</div>
+                <div class="md-subhead rank-card-text-profit">{{saleRankData[0].sale}}</div>
               </md-card-header>
             </md-card-media-actions>
           </md-card>
@@ -165,7 +165,7 @@
           <md-list-item v-for="(item, index) in remarkRankData" :key="index" v-if="index !== 0" @click="showMovieDetail(remarkRankData[index].movieid, remarkRankData[index].title)">
             <span class="rank-item-index" :class="index < 3 ? 'rank-item-index-top' : ''">{{index + 1}}</span>
             <span class="rank-item-name">{{item.title}}</span>
-            <span class="rank-item-profit">{{(item.doubanrating + item.maoyanrating) / 2.0}}分</span>
+            <span class="rank-item-profit">{{item.maoyanrating}}分</span>
           </md-list-item>
         </md-list>
       </div>
@@ -439,10 +439,15 @@
     margin-top 3px
     color #999999
   .rank-item-name
-    margin-left -40%
+    overflow hidden
+    white-space nowrap
+    text-overflow ellipsis
+    width 50%
   .rank-item-profit
-    width 60px
+    /*width 60px*/
     color #92B4F4
+    position absolute
+    right 0
   .rank-item-index-top
     color #92B4F4
   .md-card
@@ -472,6 +477,9 @@
     font-size 18px
     width 160px
     text-align left
+    overflow hidden
+    white-space nowrap
+    text-overflow ellipsis
     padding-left 10px
     padding-top 10px
   .rank-card-text-profit
@@ -548,4 +556,8 @@
     position absolute
     right 0
     top -1px
+</style>
+<style lang="stylus">
+  .md-list-item-content
+    justify-content left !important
 </style>

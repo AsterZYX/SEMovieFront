@@ -464,7 +464,7 @@
         methods: {
           initCinemaList() {
             let id = this.$route.query.id;
-            let title = this.$route.query.id;
+            let title = this.$route.query.title;
             let thisVue = this;
             this.$ajax.get('/movie/ticket',{
               params: {
@@ -485,6 +485,7 @@
                 thisVue.maoyancinemaList = page.maoyancinemaList
                 thisVue.doubancinemaList = page.doubancinemaList
                 thisVue.taoppcinemaList = page.taoppcinemaList
+                console.log(page.maoyancinemaList)
 
                 thisVue.movie.maoyanrating = parseFloat((thisVue.movie.maoyanrating/2).toFixed(1));
                 thisVue.movie.doubanrating = parseFloat((thisVue.movie.doubanrating/2).toFixed(1));

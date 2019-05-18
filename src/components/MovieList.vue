@@ -194,7 +194,8 @@
               path: "/detail",
               query: {
                 id: thisVue.movieList[index].movieid,
-                title: thisVue.movieList[index].title
+                title: thisVue.movieList[index].title,
+                state: thisVue.stateIndex
               }
             });
             window.open(routeUrl .href, '_blank');
