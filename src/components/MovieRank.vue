@@ -63,7 +63,8 @@
       layout="prev, pager, next"
       :total="totalItems"
       :current-page.sync="currentPage"
-      :page-size="pageSize">
+      :page-size="pageSize"
+      @current-change="handleCurrentChange">
     </el-pagination>
   </div>
 </template>
@@ -232,6 +233,10 @@
                 thisVue.movieListOfDouban = page
               }
             });
+          },
+          handleCurrentChange: function (val) {
+            this.currentPage = val;
+            this.initRankList();
           }
         }
     }

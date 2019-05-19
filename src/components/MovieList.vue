@@ -60,7 +60,8 @@
       layout="prev, pager, next"
       :total="totalItems"
       :current-page.sync="currentPage"
-      :page-size="pageSize">
+      :page-size="pageSize"
+      @current-change="handleCurrentChange">
     </el-pagination>
   </div>
 </template>
@@ -200,6 +201,10 @@
               }
             });
             window.open(routeUrl .href, '_blank');
+          },
+          handleCurrentChange: function (val) {
+            this.currentPage = val;
+            this.initMovieList();
           }
         }
     }
