@@ -168,7 +168,8 @@
               let data = response.data;
               let page = data.data;
               if (data.code === 0) {
-                thisVue.movieList = page
+                thisVue.movieList = page;
+                thisVue.totalItems = parseInt(data.message) * 30;
               }
             });
           },

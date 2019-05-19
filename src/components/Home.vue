@@ -60,7 +60,7 @@
             <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(movieNextList[index].movieid, movieNextList[index].title)">
               <md-card-media-cover md-solid>
                 <md-card-media>
-                  <img :src="item.cover" alt="poster">
+                  <img class="no-cover-img" src="../../static/img/no-picture.png" alt="poster">
                 </md-card-media>
 
                 <md-card-area>
@@ -128,7 +128,7 @@
             <md-card-media-actions class="rank-top-card">
               <span class="rank-top-index">1</span>
               <md-card-media class="rank-top-image">
-                <img class="rank-top-img" :src="saleRankData[0].poster" alt="Cover">
+                <img class="rank-top-img" src="../../static/img/no-picture-horizal.png" alt="Cover">
               </md-card-media>
               <md-card-header class="rank-card-text">
                 <div class="md-title rank-card-text-title">{{saleRankData[0].title}}</div>
@@ -139,7 +139,7 @@
           <md-list-item v-for="(item, index) in saleRankData" :key="index" v-if="index !== 0" @click="showMovieDetail(saleRankData[index].movieid, saleRankData[index].title)">
             <span class="rank-item-index" :class="index < 3 ? 'rank-item-index-top' : ''">{{index + 1}}</span>
             <span class="rank-item-name">{{item.title}}</span>
-            <span class="rank-item-profit">{{item.sale}}万</span>
+            <span class="rank-item-profit">{{item.sale}}</span>
           </md-list-item>
         </md-list>
       </div>
@@ -556,6 +556,13 @@
     position absolute
     right 0
     top -1px
+  /*.no-cover-img*/
+    /*width 100%*/
+    /*height 220px*/
+    /*display flex*/
+    /*justify-content center*/
+    /*align-items center*/
+    /*overflow hidden*/
 </style>
 <style lang="stylus">
   .md-list-item-content

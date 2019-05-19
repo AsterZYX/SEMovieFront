@@ -95,47 +95,68 @@
             <md-icon>shop_two</md-icon>
             影院列表</h1>
         </md-table-toolbar>
-        <md-table-row>
-          <md-table-head>影院</md-table-head>
-          <md-table-head class="cinema-item-right">猫眼票价</md-table-head>
-          <md-table-head class="cinema-item-right">豆瓣票价</md-table-head>
-          <md-table-head class="cinema-item-right">淘票票价格</md-table-head>
-          <md-table-head></md-table-head>
-        </md-table-row>
-        <md-table-row v-for="(item, index) in maoyancinemaList" :key="index">
-          <md-table-cell class="cinema-item">
-            <p class="cinema-item-title">{{ item.name }}</p>
-            <p class="text-grey">地址：{{ item.location }}</p>
-          </md-table-cell>
-          <md-table-cell class="cinema-item-right text-grey">
-            ￥
-            <span class="text-blue">{{ maoyancinemaList[index].price }}</span>
-            起
-          </md-table-cell>
-          <md-table-cell class="cinema-item-right text-grey">
-            ￥
-            <span class="text-blue">{{ doubancinemaList[index].price }}</span>
-            起
-          </md-table-cell>
-          <md-table-cell class="cinema-item-right text-grey">
-            ￥
-            <span class="text-blue">{{ taoppcinemaList[index].price }}</span>
-            起
-          </md-table-cell>
-          <md-table-cell class="cinema-item-right">
-            <md-button class="md-raised md-primary md-mini">购票选座</md-button>
-          </md-table-cell>
-        </md-table-row>
+        <md-tabs>
+          <md-tab id="0" md-label="豆瓣/猫眼">
+            <div class="cinema-tab-container">
+              <md-table class="cinema-list" v-model="maoyancinemaList" md-sort="name" md-sort-order="asc" md-card>
+                <md-table-row>
+              <md-table-head>影院</md-table-head>
+              <md-table-head class="cinema-item-right">票价</md-table-head>
+              <md-table-head></md-table-head>
+            </md-table-row>
+                <md-table-row v-for="(item, index) in maoyancinemaList" :key="index">
+              <md-table-cell class="cinema-item">
+                <p class="cinema-item-title">{{ item.name }}</p>
+                <p class="text-grey">{{ item.location }}</p>
+              </md-table-cell>
+              <md-table-cell class="cinema-item-right text-grey">
+                ￥
+                <span class="text-blue">{{ item.price }}</span>
+                起
+              </md-table-cell>
+              <md-table-cell class="cinema-item-right">
+                <md-button class="md-raised md-primary md-mini">购票选座</md-button>
+              </md-table-cell>
+            </md-table-row>
+              </md-table>
+            </div>
+          </md-tab>
+          <md-tab id="1" md-label="淘票票">
+            <div class="cinema-tab-container">
+              <md-table class="cinema-list" v-model="taoppcinemaList" md-sort="name" md-sort-order="asc" md-card>
+                <md-table-row>
+                  <md-table-head>影院</md-table-head>
+                  <md-table-head class="cinema-item-right">票价</md-table-head>
+                  <md-table-head></md-table-head>
+                </md-table-row>
+                <md-table-row v-for="(item, index) in taoppcinemaList" :key="index">
+                  <md-table-cell class="cinema-item">
+                    <p class="cinema-item-title">{{ item.name }}</p>
+                    <p class="text-grey">{{ item.location }}</p>
+                  </md-table-cell>
+                  <md-table-cell class="cinema-item-right text-grey">
+                    ￥
+                    <span class="text-blue">{{ item.price }}</span>
+                    起
+                  </md-table-cell>
+                  <md-table-cell class="cinema-item-right">
+                    <md-button class="md-raised md-primary md-mini">购票选座</md-button>
+                  </md-table-cell>
+                </md-table-row>
+              </md-table>
+            </div>
+          </md-tab>
+        </md-tabs>
       </md-table>
     </div>
-    <el-pagination
-      class="page"
-      background
-      layout="prev, pager, next"
-      :total="totalItems"
-      :current-page.sync="currentPage"
-      :page-size="pageSize">
-    </el-pagination>
+    <!--<el-pagination-->
+      <!--class="page"-->
+      <!--background-->
+      <!--layout="prev, pager, next"-->
+      <!--:total="totalItems"-->
+      <!--:current-page.sync="currentPage"-->
+      <!--:page-size="pageSize">-->
+    <!--</el-pagination>-->
   </div>
 </template>
 
@@ -667,4 +688,6 @@
   .text-blue
     color: #5E7CE2
     font-size 20px
+  .cinema-tab-container
+    width 100%
 </style>
