@@ -7,7 +7,7 @@
           <div class="movie-rank-item" v-for="(item, index) in movieListOfDouban" :key="index">
             <div class="movie-index">{{index + 1}}</div>
             <div>
-              <img class="movie-cover" :src="item.poster"/>
+              <img class="movie-cover" src="../../static/img/no-picture.png"/>
             </div>
             <div class="movie-info-container">
               <div class="movie-info-left">
@@ -19,7 +19,7 @@
                     {{actor.name}}
                   </span>
                 </p>
-                <p class="movie-info-text text-grey">{{item.release_date}}上映</p>
+                <p class="movie-info-text text-grey">{{item.year}}上映</p>
               </div>
               <div class="movie-info-right">
                 <div class="movie-info-remark">{{item.doubanrating}}</div>
@@ -35,7 +35,7 @@
           <div class="movie-rank-item" v-for="(item, index) in movieListOfMaoyan" :key="index">
             <div class="movie-index">{{index + 1}}</div>
             <div>
-              <img class="movie-cover" :src="item.poster"/>
+              <img class="movie-cover" :src="item.poster" onerror="this.src = '../../static/img/no-picture.png'"/>
             </div>
             <div class="movie-info-container">
               <div class="movie-info-left">
@@ -47,7 +47,7 @@
                     {{actor.name}}
                   </span>
                 </p>
-                <p class="movie-info-text text-grey">{{item.release_date}}上映</p>
+                <p class="movie-info-text text-grey">{{item.year}}上映</p>
               </div>
               <div class="movie-info-right">
                 <div class="movie-info-remark">{{item.maoyanrating}}</div>

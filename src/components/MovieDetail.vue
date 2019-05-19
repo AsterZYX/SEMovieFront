@@ -3,7 +3,7 @@
       <div class="movie-detail-container shadow">
         <div class="movie-image-container">
           <div class="movie-avatar-shadow">
-            <img class="avatar" :src="movie.poster"/>
+            <img class="avatar" :src="movie.poster" onerror="this.src = '../../static/img/no-picture.png'"/>
           </div>
         </div>
         <div class="movie-info-container">
@@ -12,7 +12,7 @@
           <p class="movie-info-text">
             <md-chip v-for="(item, index) in movie.genres" :key="index">{{item}}</md-chip>
           </p>
-          <p class="movie-info-text">{{movie.country}} / {{movie.runtime}}分钟</p>
+          <p class="movie-info-text">{{movie.country}} / {{movie.runtime}}</p>
           <p class="movie-info-text">{{movie.release_date}}上映</p>
           <div class="movie-info-bottom">
             <div class="movie-info-button">
@@ -77,7 +77,7 @@
                   <div>
                     <div class="staff-job">导演</div>
                     <div class="staff-pic">
-                      <img :src="movie.directorList[0].img"/>
+                      <img :src="movie.directorList[0].img" onerror="this.src = '../../static/img/no-picture.png'"/>
                     </div>
                     <div class="staff-name">
                       {{movie.directorList[0].name}}
@@ -88,7 +88,7 @@
                     <div style="display: flex">
                       <div class="staff-container" v-for="(item, index) in movie.actorList" v-if="index < 5" :key="index">
                         <div class="staff-pic">
-                          <img :src="item.img"/>
+                          <img :src="item.img" onerror="this.src = '../../static/img/no-picture.png'"/>
                         </div>
                         <div class="staff-name">
                           {{item.name}}
@@ -105,7 +105,7 @@
                   <div>
                     <div class="staff-job">导演 ( {{movie.directorList.length}} )</div>
                     <div class="staff-pic">
-                      <img :src="movie.directorList[0].img"/>
+                      <img :src="movie.directorList[0].img" onerror="this.src = '../../static/img/no-picture.png'"/>
                     </div>
                     <div class="staff-name">
                       {{ movie.directorList[0].name }}
@@ -118,7 +118,7 @@
                     <div class="staff-detail-list-container">
                       <div class="staff-detail" v-for="(item, index) in movie.actorList" :key="index">
                         <div class="staff-pic">
-                          <img :src="item.img"/>
+                          <img :src="item.img" onerror="this.src = '../../static/img/no-picture.png'"/>
                         </div>
                         <div class="staff-name">
                           {{ item.name }}
@@ -145,7 +145,7 @@
             </div>
             <div class="pic-list-container">
               <div class="pic-container" v-for="(item, index) in movie.picList" :key="index">
-                <img :src="item"/>
+                <img :src="item" onerror="this.src = '../../static/img/no-picture.png'"/>
               </div>
             </div>
           </div>
@@ -181,6 +181,12 @@
           let id = this.$route.query.id;
           let title = this.$route.query.title;
           let thisVue = this;
+          const loading = this.$loading({
+            lock: true,
+            text: 'Loading',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          });
           this.$ajax.get('/movie/detail',{
             params: {
               id: id,
@@ -190,7 +196,8 @@
             let data = response.data;
             let page = data.data;
             if (data.code === 0) {
-              thisVue.movie = page
+              thisVue.movie = page;
+              loading.close();
             }
           });
         },

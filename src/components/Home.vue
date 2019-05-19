@@ -15,7 +15,7 @@
       <el-carousel :interval="4000" type="card" height="200px">
         <el-carousel-item v-for="item in onShowMovies" :key="item">
           <h3 class="medium">
-            <img :src=item />
+            <img :src="item" onerror="this.src = '../../static/img/no-picture.png'" />
           </h3>
         </el-carousel-item>
       </el-carousel>
@@ -24,7 +24,7 @@
           <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(movieOnShowList[index].movieid, movieOnShowList[index].title)">
             <md-card-media-cover md-solid>
               <md-card-media>
-                <img :src="item.poster" alt="poster">
+                <img :src="item.poster" alt="poster" onerror="this.src = '../../static/img/no-picture.png'">
               </md-card-media>
 
               <md-card-area>
@@ -99,7 +99,7 @@
             <md-card class="movie-item-card" md-with-hover @click.native="showMovieDetail(movieHotList[index].movieid, movieHotList[index].title)">
               <md-card-media-cover md-solid>
                 <md-card-media>
-                  <img :src="item.poster" alt="poster">
+                  <img :src="item.poster" alt="poster" onerror="this.src = '../../static/img/no-picture.png'">
                 </md-card-media>
 
                 <md-card-area>
@@ -158,7 +158,7 @@
               </md-card-media>
               <md-card-header class="rank-card-text">
                 <div class="md-title rank-card-text-title">{{remarkRankData[0].title}}</div>
-                <div class="md-subhead rank-card-text-profit">{{(remarkRankData[0].doubanrating + remarkRankData[0].maoyanrating) / 2.0}}分</div>
+                <div class="md-subhead rank-card-text-profit">{{remarkRankData[0].maoyanrating}}分</div>
               </md-card-header>
             </md-card-media-actions>
           </md-card>

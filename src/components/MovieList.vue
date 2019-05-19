@@ -11,35 +11,35 @@
       <div class="tags-item type-tags">
         <div class="tags-item-title">类型</div>
         <div class="tags">
-          <md-button class="tag-button" v-for="(item, index) in typeEnums" :key="index" :class="index === typeIndex ? 'activeTag' : ''" @click="chooseMovieType(index)">{{item}}</md-button>
+          <md-button class="tag-button" v-for="(item, index) in typeEnums" :key="index" :class="index === typeIndex ? 'activeTag' : ''" @click="chooseMovieType(index)">{{item.name}}</md-button>
         </div>
       </div>
       <md-divider></md-divider>
       <div class="tags-item">
         <div class="tags-item-title">区域</div>
         <div class="tags">
-          <md-button class="tag-button" v-for="(item, index) in regionEnums" :key="index" :class="index === regionIndex ? 'activeTag' : ''" @click="chooseMovieRegion(index)">{{item}}</md-button>
+          <md-button class="tag-button" v-for="(item, index) in regionEnums" :key="index" :class="index === regionIndex ? 'activeTag' : ''" @click="chooseMovieRegion(index)">{{item.name}}</md-button>
         </div>
       </div>
       <md-divider></md-divider>
       <div class="tags-item">
         <div class="tags-item-title">年代</div>
         <div class="tags">
-          <md-button class="tag-button" v-for="(item, index) in timeEnums" :key="index" :class="index === timeIndex ? 'activeTag' : ''" @click="chooseMovieTime(index)">{{item}}</md-button>
+          <md-button class="tag-button" v-for="(item, index) in timeEnums" :key="index" :class="index === timeIndex ? 'activeTag' : ''" @click="chooseMovieTime(index)">{{item.name}}</md-button>
         </div>
       </div>
     </div>
     <div class="sort-container">
-      <md-radio class="sort-item" v-model="sortType" value="0">按热门排序</md-radio>
-      <md-radio class="sort-item" v-model="sortType" value="1">按时间排序</md-radio>
-      <md-radio class="sort-item" v-model="sortType" value="2">按评价排序</md-radio>
+      <md-radio class="sort-item" v-model="sortType" value="1">按热门排序</md-radio>
+      <md-radio class="sort-item" v-model="sortType" value="2">按时间排序</md-radio>
+      <md-radio class="sort-item" v-model="sortType" value="3">按评价排序</md-radio>
     </div>
     <div class="movie-list-container">
       <div class="movie-item" v-for="(item, index) in movieList" :key="index">
         <md-card class="movie-item-card" md-with-hover @click.native="chooseMovie(index)">
           <md-card-media-cover md-solid>
             <md-card-media>
-              <img :src="item.poster" alt="poster">
+              <img :src="item.poster" alt="poster" onerror="this.src = '../../static/img/no-picture.png'">
             </md-card-media>
 
             <md-card-area>
@@ -76,10 +76,257 @@
             regionIndex: 0,
             timeIndex: 0,
             stateEnums: ["正在上映","即将上映","全部影片"],
-            typeEnums:["全部" , "爱情" , "喜剧" , "动画" , "剧情" , "恐怖" , "惊悚" , "科幻" , "动作" , "悬疑" , "犯罪" , "冒险" , "战争" , "奇幻" , "运动" , "家庭" , "古装" , "武侠" , "西部" , "历史" , "传记" , "歌舞" , "黑色电影" , "短片" , "纪录片" , "其他"],
-            regionEnums:["全部" , "大陆" , "美国" , "韩国" , "日本" , "中国香港" , "中国台湾" , "泰国" , "印度" , "法国" , "英国" , "俄罗斯" , "意大利" , "西班牙" , "德国" , "波兰" ,  "澳大利亚" , "伊朗" , "其他"],
-            timeEnums:["全部" , "2019以后" , "2019" , "2018" , "2017" , "2016" , "2015" , "2014" , "2013" , "2012" , "2011" ,  "2000-2010" , "90年代" , "80年代" , "70年代" , "更早"],
-            sortType: '0',
+            typeEnums: [
+              {
+                name: "全部",
+                id: ""
+              },
+              {
+                name: "爱情",
+                id: 3
+              },
+              {
+                name: "喜剧",
+                id: 2
+              },
+              {
+                name: "动画",
+                id: 4
+              },
+              {
+                name: "剧情",
+                id: 1
+              },
+              {
+                name: "恐怖",
+                id: 6
+              },
+              {
+                name: "惊悚",
+                id: 7
+              },
+              {
+                name: "科幻",
+                id: 10
+              },
+              {
+                name: "动作",
+                id: 5
+              },
+              {
+                name: "悬疑",
+                id: 8
+              },
+              {
+                name: "犯罪",
+                id: 11
+              },
+              {
+                name: "冒险",
+                id: 9
+              },
+              {
+                name: "战争",
+                id: 12
+              },
+              {
+                name: "奇幻",
+                id: 14
+              },
+              {
+                name: "运动",
+                id: 15
+              },
+              {
+                name: "家庭",
+                id: 16
+              },
+              {
+                name: "古装",
+                id: 17
+              },
+              {
+                name: "武侠",
+                id: 18
+              },
+              {
+                name: "西部",
+                id: 19
+              },
+              {
+                name: "历史",
+                id: 20
+              },
+              {
+                name: "传记",
+                id: 21
+              },
+              {
+                name: "歌舞",
+                id: 23
+              },
+              {
+                name: "黑色电影",
+                id: 24
+              },
+              {
+                name: "短片",
+                id: 25
+              },
+              {
+                name: "纪录片",
+                id: 13
+              },
+              {
+                name: "其他",
+                id: 100
+              }
+            ],
+            regionEnums: [
+              {
+                name: "全部",
+                id: ""
+              },
+              {
+                name: "大陆",
+                id: 2
+              },
+              {
+                name: "美国",
+                id: 3
+              },
+              {
+                name: "韩国",
+                id: 7
+              },
+              {
+                name: "日本",
+                id: 6
+              },
+              {
+                name: "中国香港",
+                id: 10
+              },
+              {
+                name: "中国台湾",
+                id: 13
+              },
+              {
+                name: "泰国",
+                id: 9
+              },
+              {
+                name: "印度",
+                id: 8
+              },
+              {
+                name: "法国",
+                id: 4
+              },
+              {
+                name: "英国",
+                id: 5
+              },
+              {
+                name: "俄罗斯",
+                id: 14
+              },
+              {
+                name: "意大利",
+                id: 16
+              },
+              {
+                name: "西班牙",
+                id: 17
+              },
+              {
+                name: "德国",
+                id: 11
+              },
+              {
+                name: "波兰",
+                id: 19
+              },
+              {
+                name: "澳大利亚",
+                id: 20
+              },
+              {
+                name: "伊朗",
+                id: 21
+              },
+              {
+                name: "其他",
+                id: 100
+              }
+            ],
+            timeEnums: [
+              {
+                name: "全部",
+                id: ""
+              },
+              {
+                name: "2019以后",
+                id: 100
+              },
+              {
+                name: "2019",
+                id: 14
+              },
+              {
+                name: "2018",
+                id: 13
+              },
+              {
+                name: "2017",
+                id: 12
+              },
+              {
+                name: "2016",
+                id: 11
+              },
+              {
+                name: "2015",
+                id: 10
+              },
+              {
+                name: "2014",
+                id: 9
+              },
+              {
+                name: "2013",
+                id: 8
+              },
+              {
+                name: "2012",
+                id: 7
+              },
+              {
+                name: "2011",
+                id: 6
+              },
+              {
+                name: "2000-2010",
+                id: 5
+              },
+              {
+                name: "90年代",
+                id: 4
+              },
+              {
+                name: "80年代",
+                id: 3
+              },
+              {
+                name: "70年代",
+                id: 2
+              },
+              {
+                name: "更早",
+                id: 11
+              }
+            ],
+            sortType: '1',
             movieList:[
               {
                 name: "调音师",
@@ -159,11 +406,11 @@
                 size: 30,
                 page: thisVue.currentPage,
                 keyword: '',
-                type: thisVue.typeIndex,
-                region: thisVue.regionIndex,
-                time: thisVue.timeIndex,
-                state: thisVue.stateIndex,
-                sort: thisVue.sortType
+                type: thisVue.typeEnums[thisVue.typeIndex].id,
+                region: thisVue.regionEnums[thisVue.regionIndex].id,
+                time: thisVue.timeEnums[thisVue.timeIndex].id,
+                state: thisVue.stateIndex + 1,
+                sort: thisVue.sortType,
               }
             }).then((response) => {
               let data = response.data;
@@ -171,6 +418,9 @@
               if (data.code === 0) {
                 thisVue.movieList = page;
                 thisVue.totalItems = parseInt(data.message) * 30;
+
+                console.log(data.message)
+                console.log(typeof data.message)
               }
             });
           },

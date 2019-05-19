@@ -3,7 +3,7 @@
     <div class="movie-detail-container shadow">
       <div class="movie-image-container">
         <div class="movie-avatar-shadow">
-          <img class="avatar" :src="movie.poster"/>
+          <img class="avatar" :src="movie.poster" onerror="this.src = '../../static/img/no-picture.png'"/>
         </div>
       </div>
       <div class="movie-info-container">
