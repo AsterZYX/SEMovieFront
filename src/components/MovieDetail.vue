@@ -61,71 +61,113 @@
       </div>
       <div class="sub-main-container">
         <div class="left-container">
-        <md-tabs>
-          <md-tab id="0" md-label="介绍">
+          <md-tabs>
+            <md-tab class="sub-tab" id="0" md-label="介绍">
+                <div class="sub-item">
+                  <div class="sub-item-title-container">
+                    <h3 class="sub-title">剧情简介</h3>
+                  </div>
+                  <span>{{movie.plot_simple}}</span>
+                </div>
+                <div class="sub-item" style="margin-top: 100px">
+                  <div class="sub-item-title-container">
+                    <h3 class="sub-title">演职人员</h3>
+                  </div>
+                  <div class="sub-item-content">
+                    <div>
+                      <div class="staff-job">导演</div>
+                      <div class="staff-pic">
+                        <img :src="movie.directorList[0].img" onerror="this.src = '../../static/img/no-picture.png'"/>
+                      </div>
+                      <div class="staff-name">
+                        {{movie.directorList[0].name}}
+                      </div>
+                    </div>
+                    <div style="margin-left: 30px">
+                      <div class="staff-job">演员</div>
+                      <div style="display: flex">
+                        <div class="staff-container" v-for="(item, index) in movie.actorList" v-if="index < 5" :key="index">
+                          <div class="staff-pic">
+                            <img :src="item.img" onerror="this.src = '../../static/img/no-picture.png'"/>
+                          </div>
+                          <div class="staff-name">
+                            {{item.name}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </md-tab>
+            <md-tab class="sub-tab" id="1" md-label="演职人员">
+                <div class="second-tab-container">
+                  <div class="director-container">
+                    <div>
+                      <div class="staff-job">导演 ( {{movie.directorList.length}} )</div>
+                      <div class="staff-pic">
+                        <img :src="movie.directorList[0].img" onerror="this.src = '../../static/img/no-picture.png'"/>
+                      </div>
+                      <div class="staff-name">
+                        {{ movie.directorList[0].name }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="staff-detail-container">
+                    <div>
+                      <div class="staff-job">演员 ( {{movie.actorList.length}} )</div>
+                      <div class="staff-detail-list-container">
+                        <div class="staff-detail" v-for="(item, index) in movie.actorList" :key="index">
+                          <div class="staff-pic">
+                            <img :src="item.img" onerror="this.src = '../../static/img/no-picture.png'"/>
+                          </div>
+                          <div class="staff-name">
+                            {{ item.name }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </md-tab>
+            <md-tab class="sub-tab" id="2" md-label="影评分析">
               <div class="sub-item">
                 <div class="sub-item-title-container">
-                  <h3 class="sub-title">剧情简介</h3>
+                  <h3 class="sub-title">电影总评</h3>
                 </div>
-                <span>{{movie.plot_simple}}</span>
+                <span>{{analysis.summary}}</span>
               </div>
-              <div class="sub-item" style="margin-top: 100px">
+              <div class="sub-item" style="margin-top: 80px">
                 <div class="sub-item-title-container">
-                  <h3 class="sub-title">演职人员</h3>
+                  <h3 class="sub-title">电影关键字</h3>
                 </div>
-                <div class="sub-item-content">
+                <md-chip class="md-primary chip" v-for="chip in analysis.keywords" :key="chip">{{ chip }}</md-chip>
+              </div>
+              <div class="sub-item" style="margin-top: 80px">
+                <div class="sub-item-title-container">
+                  <h3 class="sub-title">正面评价（{{analysis.positive.num}}）</h3>
+                </div>
+                <div class="remark-card" v-for="(item, index) in analysis.positive.list" :key="index">
                   <div>
-                    <div class="staff-job">导演</div>
-                    <div class="staff-pic">
-                      <img :src="movie.directorList[0].img" onerror="this.src = '../../static/img/no-picture.png'"/>
-                    </div>
-                    <div class="staff-name">
-                      {{movie.directorList[0].name}}
-                    </div>
+                    <span class="remark-rank">
+                      <span style="font-size: 24px">No.</span>
+                      {{index + 1}}
+                    </span>
                   </div>
-                  <div style="margin-left: 30px">
-                    <div class="staff-job">演员</div>
-                    <div style="display: flex">
-                      <div class="staff-container" v-for="(item, index) in movie.actorList" v-if="index < 5" :key="index">
-                        <div class="staff-pic">
-                          <img :src="item.img" onerror="this.src = '../../static/img/no-picture.png'"/>
-                        </div>
-                        <div class="staff-name">
-                          {{item.name}}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <p>{{item}}</p>
                 </div>
               </div>
-          </md-tab>
-            <md-tab id="1" md-label="演职人员">
-              <div class="second-tab-container">
-                <div class="director-container">
-                  <div>
-                    <div class="staff-job">导演 ( {{movie.directorList.length}} )</div>
-                    <div class="staff-pic">
-                      <img :src="movie.directorList[0].img" onerror="this.src = '../../static/img/no-picture.png'"/>
-                    </div>
-                    <div class="staff-name">
-                      {{ movie.directorList[0].name }}
-                    </div>
-                  </div>
+              <div class="sub-item" style="margin-top: 80px">
+                <div class="sub-item-title-container">
+                  <h3 class="sub-title">负面评价（{{analysis.negative.num}}）</h3>
                 </div>
-                <div class="staff-detail-container">
+                <div class="remark-card" v-for="(item, index) in analysis.negative.list" :key="index">
                   <div>
-                    <div class="staff-job">演员 ( {{movie.actorList.length}} )</div>
-                    <div class="staff-detail-list-container">
-                      <div class="staff-detail" v-for="(item, index) in movie.actorList" :key="index">
-                        <div class="staff-pic">
-                          <img :src="item.img" onerror="this.src = '../../static/img/no-picture.png'"/>
-                        </div>
-                        <div class="staff-name">
-                          {{ item.name }}
-                        </div>
-                      </div>
-                    </div>
+                    <span class="remark-rank">
+                      <span style="font-size: 24px">No.</span>
+                      {{index + 1}}
+                    </span>
                   </div>
+                  <p>{{item}}</p>
                 </div>
               </div>
             </md-tab>
@@ -162,15 +204,57 @@
             show: 0,
             movie: {
               id: 1,
-              name: "大侦探皮卡丘",
-              english: "POKÉMON Detective Pikachu",
-              tags: ["冒险" , "奇幻" , "喜剧"],
-              region: "美国",
-              duration: 104,
-              time: "2019-05-10",
-              remark:[9.6, 9.3],
-              sales: 3.26,
-              state: 0
+              title: "大侦探皮卡丘",
+              poster: "https://p0.meituan.net/movie/b6e77d67efdc6ac89a52b956ead366ae5785152.jpg@160w_220h_1e_1c",
+              also_known_as: "POKÉMON Detective Pikachu",
+              genres: ["冒险" , "奇幻" , "喜剧"],
+              country: "美国",
+              runtime: 104,
+              release_date: "2019-05-10",
+              doubanrating: 9.2,
+              maoyanrating: 9.3,
+              plot_simple: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+              directorList: [{
+                name: "123",
+                img: ""
+              }],
+              actorList: [
+                {
+                  name: "321",
+                  img: ""
+                },
+                {
+                  name: "321",
+                  img: ""
+                },
+                {
+                  name: "321",
+                  img: ""
+                },
+                {
+                  name: "321",
+                  img: ""
+                },
+                {
+                  name: "321",
+                  img: ""
+                }
+              ],
+              sale: 3.26,
+              state: 0,
+              picList: ["","","","",""]
+            },
+            analysis: {
+              positive: {
+                num: 130,
+                list: ["这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！","这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！","这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！","绝对是今年tiff我看过的最有意思的一部电影，全场笑声掌声就没停过。节奏欢快，情节有趣又不失深度。V叔扮演的来自Bronx街头的意大利裔司机和Ali扮演的受高等教育的黑人音乐家碰撞出令人惊喜的火花，二人从纽约一路向南巡演，然而越向南种族歧视也越来越严重。导演用一种巧妙的角度向观众展示了当时的不公以及音乐家内心的纠葛。","今年看过最好的剧情片之一。剧本扎实，细节充实，表演到位。颇有《为黛西小姐开车》和《触不可及》的意味，但又因为主角角色的互换，在特定的时代和地域里散发出更强的乐趣。 chuy"]
+              },
+              negative: {
+                num: 70,
+                list: ["这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！","这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！","这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！","绝对是今年tiff我看过的最有意思的一部电影，全场笑声掌声就没停过。节奏欢快，情节有趣又不失深度。V叔扮演的来自Bronx街头的意大利裔司机和Ali扮演的受高等教育的黑人音乐家碰撞出令人惊喜的火花，二人从纽约一路向南巡演，然而越向南种族歧视也越来越严重。导演用一种巧妙的角度向观众展示了当时的不公以及音乐家内心的纠葛。","今年看过最好的剧情片之一。剧本扎实，细节充实，表演到位。颇有《为黛西小姐开车》和《触不可及》的意味，但又因为主角角色的互换，在特定的时代和地域里散发出更强的乐趣。 chuy"]
+              },
+              summary: "这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！",
+              keywords: ["这真是一个好电影！啊！", "催泪", "剧情紧凑", "演技爆棚", "这真是一个好电影！啊！", "好", "催泪", "剧情紧凑", "演技爆棚", "asd"]
             }
           }
         },
@@ -198,6 +282,18 @@
             if (data.code === 0) {
               thisVue.movie = page;
               loading.close();
+            }
+          });
+          this.$ajax.get('/movie/remark',{
+            params: {
+              id: id,
+              name: title
+            }
+          }).then((response) => {
+            let data = response.data;
+            let page = data.data;
+            if (data.code === 0) {
+              thisVue.analysis = page;
             }
           });
         },
@@ -375,4 +471,17 @@
   .staff-detail
     flex 0 0 16%
     margin-bottom 30px
+  .sub-tab
+    min-height 600px
+  .chip
+    margin 5px
+  .remark-card
+    width 100%
+    padding 15px
+    border-bottom 1px solid #e4e4e4
+  .remark-rank
+    font-size 16px
+    font-weight 400
+    line-height 40px
+    color #5E7CE2
 </style>
