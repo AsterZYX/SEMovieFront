@@ -138,20 +138,30 @@
               </div>
               <div class="sub-item" style="margin-top: 80px">
                 <div class="sub-item-title-container">
+                  <h3 class="sub-title">
+                    情感分数
+                    <span class="tip">(0-0.5表示负面评价，0.5-1.0表示正面评价)</span>
+                  </h3>
+                </div>
+                <span class="ticket-num">{{analysis.rate}}</span>
+              </div>
+              <div class="sub-item" style="margin-top: 80px">
+                <div class="sub-item-title-container">
                   <h3 class="sub-title">电影关键字</h3>
                 </div>
-                <md-chip class="md-primary chip" v-for="chip in analysis.keywords" :key="chip">{{ chip }}</md-chip>
+                <md-chip class="md-primary chip" v-for="(chip, index) in analysis.keywords" :key="index">{{ chip }}</md-chip>
               </div>
               <div class="sub-item" style="margin-top: 80px">
                 <div class="sub-item-title-container">
                   <h3 class="sub-title">正面评价（{{analysis.positive.num}}）</h3>
                 </div>
                 <div class="remark-card" v-for="(item, index) in analysis.positive.list" :key="index">
-                  <div>
+                  <div style="position: relative">
                     <span class="remark-rank">
                       <span style="font-size: 24px">No.</span>
                       {{index + 1}}
                     </span>
+                    <md-button class="md-dense md-primary add-remark-btn" @click="openAddReview(item)">追评</md-button>
                   </div>
                   <p>{{item}}</p>
                 </div>
@@ -161,10 +171,11 @@
                   <h3 class="sub-title">负面评价（{{analysis.negative.num}}）</h3>
                 </div>
                 <div class="remark-card" v-for="(item, index) in analysis.negative.list" :key="index">
-                  <div>
+                  <div style="position: relative">
                     <span class="remark-rank">
                       <span style="font-size: 24px">No.</span>
                       {{index + 1}}
+                      <md-button class="md-dense md-primary add-remark-btn" @click="openAddReview(item)">追评</md-button>
                     </span>
                   </div>
                   <p>{{item}}</p>
@@ -173,6 +184,18 @@
             </md-tab>
           </md-tabs>
         </div>
+        <md-dialog-prompt
+          style="width: 600px"
+          :md-active.sync="active"
+          v-model="review"
+          md-title="添加追评"
+          :md-content="origin"
+          md-input-maxlength="150"
+          md-input-placeholder="请输入你的观点..."
+          md-confirm-text="完成"
+          md-cancel-text="取消"
+          @md-cancel="onCancel"
+          @md-confirm="onConfirm" />
         <div class="right-container">
           <div class="sub-item">
             <div class="sub-item-title-container">
@@ -191,6 +214,18 @@
               </div>
             </div>
           </div>
+          <div class="sub-item" style="margin-top: 100px">
+            <div class="sub-item-title-container">
+              <h3 class="sub-title">追评</h3>
+            </div>
+            <div class="remark-card" v-for="(item, index) in reviewList" :key="index">
+              <p style="font-size: 11px;color: #757575">
+                <span style="color: #5E7CE2">原评：</span>
+                {{item.origin}}
+              </p>
+              <p>{{item.content}}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -202,6 +237,9 @@
         data() {
           return {
             show: 0,
+            active: false,
+            origin: "",
+            review: null,
             movie: {
               id: 1,
               title: "大侦探皮卡丘",
@@ -245,9 +283,10 @@
               picList: ["","","","",""]
             },
             analysis: {
+              rate: 0.92,
               positive: {
                 num: 130,
-                list: ["这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！","这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！","这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！","绝对是今年tiff我看过的最有意思的一部电影，全场笑声掌声就没停过。节奏欢快，情节有趣又不失深度。V叔扮演的来自Bronx街头的意大利裔司机和Ali扮演的受高等教育的黑人音乐家碰撞出令人惊喜的火花，二人从纽约一路向南巡演，然而越向南种族歧视也越来越严重。导演用一种巧妙的角度向观众展示了当时的不公以及音乐家内心的纠葛。","今年看过最好的剧情片之一。剧本扎实，细节充实，表演到位。颇有《为黛西小姐开车》和《触不可及》的意味，但又因为主角角色的互换，在特定的时代和地域里散发出更强的乐趣。 chuy"]
+                list: ["这真是一个好电影！啊！","这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！","这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！","绝对是今年tiff我看过的最有意思的一部电影，全场笑声掌声就没停过。节奏欢快，情节有趣又不失深度。V叔扮演的来自Bronx街头的意大利裔司机和Ali扮演的受高等教育的黑人音乐家碰撞出令人惊喜的火花，二人从纽约一路向南巡演，然而越向南种族歧视也越来越严重。导演用一种巧妙的角度向观众展示了当时的不公以及音乐家内心的纠葛。","今年看过最好的剧情片之一。剧本扎实，细节充实，表演到位。颇有《为黛西小姐开车》和《触不可及》的意味，但又因为主角角色的互换，在特定的时代和地域里散发出更强的乐趣。 chuy"]
               },
               negative: {
                 num: 70,
@@ -255,7 +294,8 @@
               },
               summary: "这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！这真是一个好电影！啊！",
               keywords: ["这真是一个好电影！啊！", "催泪", "剧情紧凑", "演技爆棚", "这真是一个好电影！啊！", "好", "催泪", "剧情紧凑", "演技爆棚", "asd"]
-            }
+            },
+            reviewList: []
           }
         },
         created() {
@@ -294,10 +334,39 @@
             let page = data.data;
             if (data.code === 0) {
               thisVue.analysis = page;
+              let review = {
+                content: "这样评价未免偏颇，个人情感色彩太重，何必戾气这么重呢？",
+                origin: page.negative.list[0]
+              };
+              thisVue.reviewList.push(review);
             }
           });
         },
+        watch: {
+          review(newVal){
+            console.log(newVal);
+          }
+        },
         methods: {
+          openAddReview (text) {
+            this.origin = text;
+            this.active = true;
+            this.$nextTick(function () {
+              this.review = '';
+            });
+          },
+          onCancel () {
+            this.origin = "";
+            this.review = null;
+          },
+          onConfirm () {
+            let item = {
+              content: this.review,
+              origin: this.origin
+            };
+            this.reviewList.push(item);
+            this.onCancel();
+          },
           movieTicket() {
             let thisVue = this
             let routeUrl = this.$router.resolve({
@@ -484,4 +553,11 @@
     font-weight 400
     line-height 40px
     color #5E7CE2
+  .tip
+    font-size 14px
+    color #5E7CE2
+    margin-left 15px
+  .add-remark-btn
+    position absolute
+    right -20px
 </style>
